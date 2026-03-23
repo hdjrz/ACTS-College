@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACTS Colleges Admissions Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" href="image/logo1.png">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admissions.css" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+
+  <!-- â•â•â• LOADER â•â•â• -->
+  <div id="loader">
+    <div class="ld-spin">
+      <img class="ld-img" src="image/logo.png" alt="ACTS Colleges"
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22%3E%3Ccircle cx=%2240%22 cy=%2240%22 r=%2238%22 fill=%22%23003087%22/%3E%3Ctext x=%2240%22 y=%2248%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2218%22 fill=%22white%22%3EACTS%3C/text%3E%3C/svg%3E'" />
+    </div>
+    <div class="ld-name">
+      ACTS Colleges
+      <small>Asian Christian Technological School &amp; Colleges</small>
+    </div>
+    <div class="ld-track">
+      <div class="ld-bar"></div>
+    </div>
+  </div>
+
+  <header class="portal-shell">
+    <div class="container">
+      <div class="portal-shell-inner">
+        <div class="portal-brand">
+          <img src="image/logo.png" alt="ACTS Colleges" onerror="this.style.display='none'" />
+          <div>
+            <span class="portal-kicker">ACTS Colleges</span>
+            <h2>Admissions Portal</h2>
+            <p>Standalone applicant login and application page.</p>
+          </div>
+        </div>
+        <div class="portal-meta">
+          <span class="portal-chip"><i class="bi bi-window-stack"></i>Separate HTML Page</span>
+          <a class="portal-chip" href="mailto:admissions@acts.edu.ph"><i
+              class="bi bi-envelope-fill"></i>admissions@acts.edu.ph</a>
+          <span class="portal-chip"><i class="bi bi-telephone-fill"></i>+63 (02) 8XXX-XXXX</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- â•â•â• HERO â•â•â• -->
+  <section class="adm-page-hero" id="admPageHero">
+    <div class="hero-dots"></div>
+    <div class="container">
+      <div class="breadcrumb-nav fu">
+        <span class="portal-pill"><i class="bi bi-shield-lock-fill me-1"></i>Standalone Admissions Portal</span>
+      </div>
+      <h1 class="fu d1">Admissions <em>Portal</em></h1>
+      <p class="fu d2">Log in with your email and password to track your application, or submit a new student
+        application for S.Y. 2025-2026 through this standalone portal.</p>
+    </div>
+  </section>
+
+
+  <!-- â•â•â• AUTH SECTION â•â•â• -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="row g-4">
+
+        <!-- MAIN CONTENT -->
+        <div class="col-lg-8" id="authMainCol">
+          <div class="auth-container">
+
+            <!-- TABS -->
+            <div class="auth-tabs" id="authTabs">
+              <button class="auth-tab active" onclick="switchTab('login')" id="tabLogin">
+                <i class="bi bi-box-arrow-in-right"></i>Login
+              </button>
+              <button class="auth-tab" onclick="switchTab('apply')" id="tabApply">
+                <i class="bi bi-pencil-square"></i>New Application
+              </button>
+            </div>
+
+            <!-- â•â•â• LOGIN PANEL â•â•â• -->
+            <div class="auth-panel active" id="panelLogin">
+              <div class="login-wrapper">
+                <div class="login-icon">
+                  <i class="bi bi-person-fill"></i>
+                </div>
+                <h3>Welcome Back</h3>
+                <p class="login-sub">Sign in with your applicant credentials to check your admission status.</p>
+
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                  <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <div class="input-icon-wrap">
+                      <i class="bi bi-envelope"></i>
+                      <input type="email" class="form-control" id="loginEmail" name="email"
+                        placeholder="yourname@email.com" autocomplete="username" required />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="input-icon-wrap">
+                      <i class="bi bi-lock"></i>
+                      <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password"
+                        autocomplete="current-password" required />
+                      <button type="button" class="password-toggle" onclick="togglePassword('loginPassword', this)">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="login-options">
+                    <label>
+                      <input type="checkbox" /> Remember me
+                    </label>
+                    <a href="#">Forgot password?</a>
+                  </div>
+
+                  <button type="submit" class="btn-login">
+                    <i class="bi bi-box-arrow-in-right"></i>Sign In
+                  </button>
+                </form>
+
+                <p class="login-footer">
+                  Don't have an account? <a href="#" onclick="switchTab('apply'); return false;">Apply Now</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- â•â•â• APPLICATION PANEL â•â•â• -->
+            <div class="auth-panel" id="panelApply">
+
+              <div class="app-form-header">
+                <div class="app-icon">
+                  <i class="bi bi-mortarboard-fill"></i>
+                </div>
+                <h3>New Student Application</h3>
+                <p>Complete the form below to begin your enrollment at ACTS Colleges for S.Y. 20252026.</p>
+              </div>
+
+              <!-- Google Auth Gate -->
+              <div id="googleAuthGate" class="text-center py-5">
+                <div class="mb-4">
+                  <i class="bi bi-shield-lock text-primary" style="font-size: 3rem;"></i>
+                </div>
+                <h4 class="fw-bold text-dark mb-3">Verify Email to Apply</h4>
+                <p class="text-muted mb-4 px-md-5">To ensure the security of your application, please sign in with Google. This will instantly verify your email and fast-track the process.</p>
+                <div class="d-flex justify-content-center" id="googleBtnContainer">
+                  <div id="g_id_onload"
+                    data-client_id="976635367923-bt9ed08c8gudgea6br01pqebf71i8a95.apps.googleusercontent.com"
+                    data-context="use" data-ux_mode="popup" data-callback="handleGoogleCredentialResponse"
+                    data-auto_prompt="false">
+                  </div>
+                  <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+                    data-text="continue_with" data-size="large" data-logo_alignment="center">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Application Form (Hidden Initially) -->
+              <div id="applicationFormContainer" style="display:none;">
+                <!-- STEPPER -->
+                <div class="stepper" id="stepper">
+                  <div class="stepper-step active" data-step="1">
+                  <div class="stepper-num">1</div>
+                  <span class="stepper-label">Personal Info</span>
+                </div>
+                <div class="stepper-line" data-line="1"></div>
+                <div class="stepper-step" data-step="2">
+                  <div class="stepper-num">2</div>
+                  <span class="stepper-label">Academic Info</span>
+                </div>
+                <div class="stepper-line" data-line="2"></div>
+                <div class="stepper-step" data-step="3">
+                  <div class="stepper-num">3</div>
+                  <span class="stepper-label">Documents</span>
+                </div>
+                <div class="stepper-line" data-line="3"></div>
+                <div class="stepper-step" data-step="4">
+                  <div class="stepper-num">4</div>
+                  <span class="stepper-label">Review</span>
+                </div>
+              </div>
+
+              <form id="applicationForm" onsubmit="handleSubmitApplication(event)">
+
+                <!-- â•â•â• STEP 1: PERSONAL INFO â•â•â• -->
+                <div class="form-step active" id="step1">
+                  <h5 class="form-step-title"><i class="bi bi-person-vcard"></i>Personal Information</h5>
+                  <p class="form-step-desc">Please provide your basic personal details.</p>
+
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <label class="form-label">First Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="firstName" placeholder="Juan" required />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Middle Name</label>
+                      <input type="text" class="form-control" id="middleName" placeholder="Santos" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="lastName" placeholder="Dela Cruz" required />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Suffix</label>
+                      <select class="form-select" id="suffix">
+                        <option value="">None</option>
+                        <option>Jr.</option>
+                        <option>Sr.</option>
+                        <option>II</option>
+                        <option>III</option>
+                        <option>IV</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                      <input type="date" class="form-control" id="birthDate" required />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Sex <span class="text-danger">*</span></label>
+                      <select class="form-select" id="sex" required>
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                      <div class="input-icon-wrap">
+                        <i class="bi bi-envelope"></i>
+                        <input type="email" class="form-control" id="email" placeholder="your@email.com" required />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Contact Number <span class="text-danger">*</span></label>
+                      <div class="input-icon-wrap">
+                        <i class="bi bi-phone"></i>
+                        <input type="tel" class="form-control" id="contactNum" placeholder="09XX XXX XXXX" required />
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Complete Address <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="address"
+                        placeholder="House No., Street, Barangay, City, Province" required />
+                    </div>
+                  </div>
+
+                  <h6 class="form-section-label mt-4"><i class="bi bi-people-fill"></i>Parent / Guardian Information
+                  </h6>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Parent/Guardian Full Name <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="guardianName" placeholder="Full Name" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Relationship <span class="text-danger">*</span></label>
+                      <select class="form-select" id="guardianRelation" required>
+                        <option value="">Select</option>
+                        <option>Mother</option>
+                        <option>Father</option>
+                        <option>Guardian</option>
+                        <option>Sibling</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Guardian Contact Number <span class="text-danger">*</span></label>
+                      <input type="tel" class="form-control" id="guardianContact" placeholder="09XX XXX XXXX"
+                        required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Guardian Email</label>
+                      <input type="email" class="form-control" id="guardianEmail" placeholder="guardian@email.com" />
+                    </div>
+                  </div>
+
+                  <div class="form-nav">
+                    <div></div>
+                    <button type="button" class="btn-step-next" onclick="nextStep(1)">
+                      Next: Academic Info <i class="bi bi-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- â•â•â• STEP 2: ACADEMIC INFO â•â•â• -->
+                <div class="form-step" id="step2">
+                  <h5 class="form-step-title"><i class="bi bi-book"></i>Academic Information</h5>
+                  <p class="form-step-desc">Tell us about your educational background and program interest.</p>
+
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label class="form-label">Applicant Type <span class="text-danger">*</span></label>
+                      <select class="form-select" id="applicantType" required>
+                        <option value="">Select</option>
+                        <option>New Student (Freshman)</option>
+                        <option>Transferee</option>
+                        <option>Returning Student</option>
+                        <option>Cross-Enrollee</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Desired Program <span class="text-danger">*</span></label>
+                      <select class="form-select" id="desiredProgram" required>
+                        <option value="">Select Program</option>
+                        <optgroup label="College Programs">
+                          <option>BS Information Technology</option>
+                          <option>BS Computer Science</option>
+                          <option>BS Criminology</option>
+                        </optgroup>
+                        <optgroup label="Senior High School">
+                          <option>SHS TVL-ICT Strand</option>
+                          <option>SHS HUMSS Strand</option>
+                          <option>SHS ABM Strand</option>
+                        </optgroup>
+                        <optgroup label="Basic Education">
+                          <option>Junior High School</option>
+                          <option>Elementary</option>
+                          <option>Preschool / Kindergarten</option>
+                        </optgroup>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Last School Attended <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="lastSchool" placeholder="School name" required />
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Year Last Attended <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="yearAttended" placeholder="e.g. 2024-2025" required />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">Grade/Year Level Completed <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control" id="yearLevel" placeholder="e.g. Grade 12, 1st Year"
+                        required />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">General Average</label>
+                      <input type="text" class="form-control" id="genAvg" placeholder="e.g. 88.5" />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label">LRN (Learner Ref. No.)</label>
+                      <input type="text" class="form-control" id="lrn" placeholder="12-digit LRN" />
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Preferred Schedule</label>
+                      <select class="form-select" id="schedule">
+                        <option value="">Select preferred schedule</option>
+                        <option>Morning (7:00 AM 12:00 PM)</option>
+                        <option>Afternoon (1:00 PM 6:00 PM)</option>
+                        <option>No Preference</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-nav">
+                    <button type="button" class="btn-step-prev" onclick="prevStep(2)">
+                      <i class="bi bi-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn-step-next" onclick="nextStep(2)">
+                      Next: Documents <i class="bi bi-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- â• â• â•  STEP 3: REVIEW â• â• â•  -->
+                <div class="form-step" id="step3">
+                  <h5 class="form-step-title"><i class="bi bi-clipboard-check"></i>Review Your Application</h5>
+                  <p class="form-step-desc">Please review all information before submitting. You can go back to make
+                    changes.</p>
+
+                  <div class="review-card">
+                    <h6><i class="bi bi-person-vcard"></i>Personal Information</h6>
+                    <div class="review-row">
+                      <span class="review-label">Full Name</span>
+                      <span class="review-value" id="revName"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Date of Birth</span>
+                      <span class="review-value" id="revBirth"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Sex</span>
+                      <span class="review-value" id="revSex"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Email</span>
+                      <span class="review-value" id="revEmail"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Contact</span>
+                      <span class="review-value" id="revContact"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Address</span>
+                      <span class="review-value" id="revAddress"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Parent/Guardian</span>
+                      <span class="review-value" id="revGuardian"></span>
+                    </div>
+                  </div>
+
+                  <div class="review-card">
+                    <h6><i class="bi bi-book"></i>Academic Information</h6>
+                    <div class="review-row">
+                      <span class="review-label">Applicant Type</span>
+                      <span class="review-value" id="revType"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Desired Program</span>
+                      <span class="review-value" id="revProgram"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Last School</span>
+                      <span class="review-value" id="revSchool"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Year Attended</span>
+                      <span class="review-value" id="revYear"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">Grade/Year Completed</span>
+                      <span class="review-value" id="revLevel"></span>
+                    </div>
+                    <div class="review-row">
+                      <span class="review-label">General Average</span>
+                      <span class="review-value" id="revAvg"></span>
+                    </div>
+                  </div>
+
+
+
+                  <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="agreeTerms" required />
+                    <label class="form-check-label" for="agreeTerms" style="font-size:.85rem;color:var(--muted)">
+                      I certify that all information provided is true and correct. I understand that any false
+                      information may result in the cancellation of my application.
+                    </label>
+                  </div>
+
+                  <div class="form-nav">
+                    <button type="button" class="btn-step-prev" onclick="prevStep(3)">
+                      <i class="bi bi-arrow-left"></i> Previous
+                    </button>
+                    <button type="submit" class="btn-submit-app">
+                      <i class="bi bi-send-fill"></i> Submit Application
+                    </button>
+                  </div>
+                </div>
+
+                <!-- â•â•â• SUCCESS STATE â•â•â• -->
+                <div class="form-step" id="stepSuccess">
+                  <div class="success-state">
+                    <div class="success-icon">
+                      <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h3>Application Submitted!</h3>
+                    <p>Your application has been received successfully. Save the reference number and login credentials
+                      below so you can track your admission status.</p>
+                    <div class="ref-number" id="refNumber">ACTS-2026-XXXXXX</div>
+                    <div class="generated-credentials">
+                      <div class="generated-credentials-title"><i class="bi bi-key-fill"></i>Your Login Credentials
+                      </div>
+                      <div class="generated-credential-row">
+                        <span>Email</span>
+                        <strong id="successEmail">your@email.com</strong>
+                      </div>
+                      <div class="generated-credential-row">
+                        <span>Temporary Password</span>
+                        <strong id="successPassword">ACTS0000</strong>
+                      </div>
+                    </div>
+                    <p style="font-size:.83rem">A confirmation email will be sent to your registered email address. Use
+                      the <strong>Login</strong> tab with your email and temporary password to track your application
+                      status.</p>
+                    <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+                      <button type="button" class="btn-step-prev" onclick="resetApplicationFlow()">
+                        <i class="bi bi-arrow-counterclockwise"></i> New Application
+                      </button>
+                      <button type="button" class="btn-step-next" onclick="switchTab('login')">
+                        <i class="bi bi-box-arrow-in-right"></i> Go to Login
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+              <input type="hidden" id="googleVerified" value="false" />
+              </div> <!-- End applicationFormContainer -->
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-4" id="infoSidebarCol">
+          <div class="info-sidebar">
+
+            <div class="info-card">
+              <h6><i class="bi bi-info-circle-fill"></i>Admission Requirements</h6>
+              <div class="info-item"><i class="bi bi-check2-circle"></i>Original & Photocopy of Form 138 (Report Card)
+              </div>
+              <div class="info-item"><i class="bi bi-check2-circle"></i>PSA Birth Certificate (Original & Photocopy)
+              </div>
+              <div class="info-item"><i class="bi bi-check2-circle"></i>Certificate of Good Moral Character</div>
+              <div class="info-item"><i class="bi bi-check2-circle"></i>2Ã—2 ID Photos 4 pcs, white background</div>
+              <div class="info-item"><i class="bi bi-check2-circle"></i>Medical Certificate (freshmen)</div>
+              <div class="info-item"><i class="bi bi-check2-circle"></i>Long Brown Envelope</div>
+            </div>
+
+            <div class="info-card">
+              <h6><i class="bi bi-calendar3"></i>Enrollment Schedule</h6>
+              <div class="info-item"><i class="bi bi-person-plus-fill"></i><strong>New Students:&nbsp;</strong>April 1 -
+                June 15, 2025</div>
+              <div class="info-item"><i class="bi bi-arrow-repeat"></i><strong>Returning:&nbsp;</strong>March 18 - April
+                30, 2025</div>
+              <div class="info-item"><i class="bi bi-shuffle"></i><strong>Transferees:&nbsp;</strong>April 1 - May 31,
+                2025</div>
+              <div class="info-item"><i class="bi bi-clock-fill"></i><strong>Office Hours:&nbsp;</strong>MonFri, 8AM
+                5PM</div>
+            </div>
+
+            <div class="info-card">
+              <h6><i class="bi bi-question-circle-fill"></i>Need Help?</h6>
+              <a href="tel:+630280000000" class="help-link">
+                <i class="bi bi-telephone-fill"></i>Contact Admissions Office
+              </a>
+              <a href="mailto:admissions@acts.edu.ph" class="help-link">
+                <i class="bi bi-envelope-fill"></i>admissions@acts.edu.ph
+              </a>
+              <a href="https://www.facebook.com/acts.taguig" target="_blank" class="help-link">
+                <i class="bi bi-facebook"></i>Message us on Facebook
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="portal-footer">
+    <div class="container">
+      <div class="portal-footer-inner">
+        <span>&copy; 2026 ACTS Colleges Admissions Portal</span>
+        <span>Standalone page for applicant login, application submission, and status tracking.</span>
+        <a href="mailto:admissions@acts.edu.ph">admissions@acts.edu.ph</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    const applicantStorageKey = 'actsAdmissionsLatestApplicant';
+    const sessionAccountStorageKey = 'actsAdmissionsSessionAccount';
+
+    /* â•â•â• LOADER â•â•â• */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const el = document.getElementById('loader');
+        el.classList.add('hide');
+        el.addEventListener('transitionend', () => el.remove(), { once: true });
+      }, 2000);
+    });
+
+    function normalizeEmail(email) {
+      return email.trim().toLowerCase();
+    }
+
+    function readStoredApplicant() {
+      try {
+        const raw = localStorage.getItem(applicantStorageKey);
+        return raw ? JSON.parse(raw) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveApplicant(account) {
+      try {
+        localStorage.setItem(applicantStorageKey, JSON.stringify(account));
+      } catch (error) {
+        /* Ignore storage errors on static previews. */
+      }
+    }
+
+    function saveSessionAccount(account) {
+      try {
+        localStorage.setItem(sessionAccountStorageKey, JSON.stringify(account));
+      } catch (error) {
+        /* Ignore storage errors on static previews. */
+      }
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result || '');
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function collectUploadedDocuments() {
+      const documentBlocks = document.querySelectorAll('#step3 .col-md-6');
+      const uploadedDocuments = [];
+
+      for (const block of documentBlocks) {
+        const input = block.querySelector('input[type="file"]');
+        if (!input || !input.files || !input.files[0]) continue;
+
+        const labelTextRaw = block.querySelector('label.form-label')?.textContent || 'Document';
+        const labelText = labelTextRaw.replace('*', '').trim();
+        const file = input.files[0];
+        const isImage = (file.type || '').startsWith('image/');
+        const preview = isImage ? await readFileAsDataUrl(file) : '';
+
+        uploadedDocuments.push({
+          label: labelText,
+          name: file.name,
+          type: file.type || '',
+          preview
+        });
+      }
+
+      return uploadedDocuments;
+    }
+
+    function buildApplicantAccount(reference) {
+      const v = id => {
+        const el = document.getElementById(id);
+        return el ? (el.value || '').trim() : '';
+      };
+
+      const nameParts = [v('firstName'), v('middleName'), v('lastName')].filter(Boolean);
+      const suffix = v('suffix') && v('suffix') !== 'None' ? v('suffix') : '';
+      if (suffix) nameParts.push(suffix);
+
+
+      return {
+        email: normalizeEmail(v('email')),
+        password: 'ACTS' + String(Math.floor(1000 + Math.random() * 9000)),
+        reference,
+        name: nameParts.join(' '),
+        status: 'Application Received',
+        statusClass: 'status-pending',
+        statusIcon: 'bi bi-inbox',
+        program: v('desiredProgram') || 'Program To Be Announced',
+        exam: 'To be scheduled',
+        documents: 'Initial review pending',
+        submittedAt: new Date().toLocaleString('en-PH', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit'
+        }),
+        documentsAt: 'Pending verification',
+        currentStepTitle: 'Submitted online',
+        currentStepDate: 'Waiting for admissions review',
+        examSchedule: 'Entrance exam schedule will be sent by email',
+        contact: v('contactNum'),
+        applicantType: v('applicantType') || 'New Student',
+        school: v('lastSchool') || 'Not provided',
+        yearCompleted: [v('yearLevel'), v('yearAttended')].filter(Boolean).join(' - ') || 'To be evaluated',
+        average: v('genAvg') || 'To be evaluated',
+        documentsList: []
+      };
+    }
+
+
+    /* â•â•â• TAB SWITCHING â•â•â• */
+    function switchTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+
+      if (tab === 'login') {
+        document.getElementById('tabLogin').classList.add('active');
+        document.getElementById('panelLogin').classList.add('active');
+      } else {
+        document.getElementById('tabApply').classList.add('active');
+        document.getElementById('panelApply').classList.add('active');
+      }
+    }
+
+    /* â•â•â• PASSWORD TOGGLE â•â•â• */
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'bi bi-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'bi bi-eye';
+      }
+    }
+
+    /* â•â•â• FORM STEPPER â•â•â• */
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function updateStepper() {
+      document.querySelectorAll('.stepper-step').forEach(step => {
+        const s = parseInt(step.dataset.step);
+        step.classList.remove('active', 'completed');
+        if (s === currentStep) step.classList.add('active');
+        else if (s < currentStep) step.classList.add('completed');
+      });
+
+      document.querySelectorAll('.stepper-line').forEach(line => {
+        const l = parseInt(line.dataset.line);
+        line.classList.remove('active', 'completed');
+        if (l < currentStep) line.classList.add('completed');
+        else if (l === currentStep) line.classList.add('active');
+      });
+
+      document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+      const target = document.getElementById('step' + currentStep);
+      if (target) target.classList.add('active');
+    }
+
+    function nextStep(fromStep) {
+      /* Basic validation for required fields in current step */
+      const stepEl = document.getElementById('step' + fromStep);
+      const required = stepEl.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('is-invalid');
+          valid = false;
+        } else {
+          input.classList.remove('is-invalid');
+        }
+      });
+
+      if (!valid) {
+        stepEl.querySelector('.is-invalid')?.focus();
+        return;
+      }
+
+      if (fromStep < totalSteps) {
+        currentStep = fromStep + 1;
+        updateStepper();
+        if (currentStep === 3) populateReview();
+        window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
+      }
+    }
+
+    function prevStep(fromStep) {
+      if (fromStep > 1) {
+        currentStep = fromStep - 1;
+        updateStepper();
+        window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
+      }
+    }
+
+    /* â•â•â• POPULATE REVIEW â•â•â• */
+    function populateReview() {
+      const v = id => { const el = document.getElementById(id); return el ? (el.value || '') : ''; };
+      const suffix = v('suffix') && v('suffix') !== 'None' ? ' ' + v('suffix') : '';
+
+      document.getElementById('revName').textContent = v('firstName') + ' ' + (v('middleName') !== '' ? v('middleName') + ' ' : '') + v('lastName') + suffix;
+      document.getElementById('revBirth').textContent = v('birthDate');
+      document.getElementById('revSex').textContent = v('sex');
+      document.getElementById('revEmail').textContent = v('email');
+      document.getElementById('revContact').textContent = v('contactNum');
+      document.getElementById('revAddress').textContent = v('address');
+      document.getElementById('revGuardian').textContent = v('guardianName') + ' (' + v('guardianRelation') + ')';
+      document.getElementById('revType').textContent = v('applicantType');
+      document.getElementById('revProgram').textContent = v('desiredProgram');
+      document.getElementById('revSchool').textContent = v('lastSchool');
+      document.getElementById('revYear').textContent = v('yearAttended');
+      document.getElementById('revLevel').textContent = v('yearLevel');
+      document.getElementById('revAvg').textContent = v('genAvg') || '';
+    }
+
+    /* â•â•â• FILE NAME DISPLAY â•â•â• */
+    function showFileName(input) {
+      const display = input.closest('.col-md-6').querySelector('.file-name-display');
+      if (input.files.length > 0) {
+        display.textContent = input.files[0].name;
+        input.closest('.file-upload-area').style.borderColor = 'var(--blue)';
+        input.closest('.file-upload-area').style.background = 'rgba(46,120,184,0.04)';
+      }
+    }
+
+    /* â•â•â• LOGIN HANDLER â•â•â• */
+    async function handleLogin(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('loginEmail').value;
+      const passInput = document.getElementById('loginPassword').value;
+
+      if (emailInput === 'admin@demo.com' && passInput === 'admin123') {
+        localStorage.setItem('demoSession', 'admin');
+        window.location.href = 'admin.html';
+        return;
+      }
+      if (emailInput === 'student@demo.com' && passInput === 'student123') {
+        localStorage.setItem('demoSession', 'student');
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="bi bi-hourglass-split"></i>Signing in...';
+
+      try {
+        const res = await fetch('api/login.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: emailInput, password: passInput })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.user && data.user.role === 'admin') {
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        } else {
+          alert(data.message || 'Invalid email or password.');
+        }
+      } catch (err) {
+        alert('Connection error. Please make sure Laragon is running.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+      }
+    }
+
+    /* â•â•â• APPLICATION SUBMIT â•â•â• */
+    async function handleSubmitApplication(e) {
+      e.preventDefault();
+
+      if (!document.getElementById('agreeTerms').checked) {
+        alert('Please agree to the certification statement before submitting.');
+        return;
+      }
+
+      const btn = e.target.querySelector('.btn-submit-app');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="bi bi-hourglass-split"></i>Submitting...';
+
+      const v = id => { const el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+
+      const formData = {
+        firstName: v('firstName'), middleName: v('middleName'), lastName: v('lastName'),
+        suffix: v('suffix'), birthDate: v('birthDate'), sex: v('sex'),
+        email: v('email'), contactNum: v('contactNum'), address: v('address'),
+        guardianName: v('guardianName'), guardianRelation: v('guardianRelation'),
+        guardianContact: v('guardianContact'), guardianEmail: v('guardianEmail'),
+        applicantType: v('applicantType'), desiredProgram: v('desiredProgram'),
+        lastSchool: v('lastSchool'), yearAttended: v('yearAttended'),
+        yearLevel: v('yearLevel'), genAvg: v('genAvg'), lrn: v('lrn'),
+        schedule: v('schedule'),
+        googleVerified: v('googleVerified') === 'true'
+      };
+
+      try {
+        const res = await fetch('api/register.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.removeItem('actsAdmissionsDraft'); // Clear draft upon success
+          
+          document.getElementById('refNumber').textContent = data.reference;
+          document.getElementById('successEmail').textContent = data.email;
+          document.getElementById('successPassword').textContent = data.tempPassword;
+          document.getElementById('loginEmail').value = data.email;
+          document.getElementById('loginPassword').value = data.tempPassword;
+
+          /* Show success state */
+          document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+          document.getElementById('stepSuccess').classList.add('active');
+          document.querySelector('.stepper').style.display = 'none';
+          window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
+        } else {
+          alert(data.message || 'Submission failed. Please try again.');
+        }
+      } catch (err) {
+        alert('Connection error. Please make sure Laragon is running.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+      }
+    }
+
+    function resetApplicationFlow() {
+      document.getElementById('applicationForm').reset();
+      currentStep = 1;
+      document.querySelector('.stepper').style.display = 'flex';
+      document.querySelectorAll('.form-control, .form-select').forEach(input => input.classList.remove('is-invalid'));
+      updateStepper();
+
+      const gVerifyEl = document.getElementById('googleVerified');
+      if (gVerifyEl) gVerifyEl.value = "false";
+
+      const gate = document.getElementById('googleAuthGate');
+      const formContainer = document.getElementById('applicationFormContainer');
+      if (gate) gate.style.display = 'block';
+      if (formContainer) formContainer.style.display = 'none';
+
+      // Ensure success UI is hidden
+      document.getElementById('stepSuccess').classList.remove('active');
+
+      switchTab('apply');
+      window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    /* â•â•â• REMOVE INVALID ON INPUT â•â•â• */
+    document.querySelectorAll('.form-control, .form-select').forEach(input => {
+      input.addEventListener('input', () => input.classList.remove('is-invalid'));
+      input.addEventListener('change', () => input.classList.remove('is-invalid'));
+    });
+    /* ── DRAFT AUTO-SAVE ── */
+    const DRAFT_KEY = 'actsAdmissionsDraft';
+
+    function saveDraft() {
+      const draft = {};
+      const inputs = document.querySelectorAll('#applicationForm input:not([type="hidden"]):not([type="file"]), #applicationForm select, #applicationForm textarea');
+      inputs.forEach(input => {
+        // Skip agreeTerms to ensure they manually check it on submit
+        if (input.id === 'agreeTerms') return;
+        if (input.type === 'checkbox' || input.type === 'radio') {
+          draft[input.id] = input.checked;
+        } else {
+          draft[input.id] = input.value;
+        }
+      });
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    }
+
+    function loadDraft() {
+      try {
+        const draftJSON = localStorage.getItem(DRAFT_KEY);
+        if (!draftJSON) return;
+        const draft = JSON.parse(draftJSON);
+        for (const [id, value] of Object.entries(draft)) {
+          const el = document.getElementById(id);
+          if (el) {
+            if (el.type === 'checkbox' || el.type === 'radio') {
+              el.checked = value;
+            } else {
+              // Don't overwrite if it was already filled by Google
+              if (!el.value) el.value = value;
+            }
+          }
+        }
+      } catch(e) {}
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = document.querySelectorAll('#applicationForm input:not([type="hidden"]):not([type="file"]), #applicationForm select, #applicationForm textarea');
+      inputs.forEach(input => {
+        input.addEventListener('input', saveDraft);
+        input.addEventListener('change', saveDraft);
+      });
+    });
+
+    /* ── GOOGLE SIGN-IN HANDLER ── */
+    function parseJwt(token) {
+      try {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+      const data = parseJwt(response.credential);
+      if (data) {
+        
+        // Ensure email isn't already used
+        try {
+            const checkRes = await fetch('api/check_email.php', {
+               method: 'POST',
+               headers: { 'Content-Type': 'application/json' },
+               body: JSON.stringify({ email: data.email })
+            });
+            const checkData = await checkRes.json();
+            if (checkData.exists) {
+                alert('An application with this email already exists! Please use the Login tab to track your admission status.');
+                document.getElementById('loginEmail').value = data.email;
+                switchTab('login');
+                return;
+            }
+        } catch(e) {}
+
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('firstName').value = data.given_name || '';
+        document.getElementById('lastName').value = data.family_name || '';
+
+        // Remove validation errors
+        ['email', 'firstName', 'lastName'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('is-invalid');
+        });
+
+        const gVerifyEl = document.getElementById('googleVerified');
+        if (gVerifyEl) gVerifyEl.value = "true";
+
+        // Hide gate, show form
+        const gate = document.getElementById('googleAuthGate');
+        const formContainer = document.getElementById('applicationFormContainer');
+        if (gate) gate.style.display = 'none';
+        if (formContainer) {
+           formContainer.style.display = 'block';
+           loadDraft(); // Recover saved draft info now that the form is visible
+        }
+
+        alert('Your email is securely verified! Please complete the rest of your application form.');
+      }
+    }
+  </script>
+
+</body>
+
+</html>

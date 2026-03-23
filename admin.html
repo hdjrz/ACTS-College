@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACTS Colleges Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" href="image/logo1.png">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admissions.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+
+  <header class="portal-shell">
+    <div class="container">
+      <div class="portal-shell-inner">
+        <div class="portal-brand">
+          <img src="image/logo.png" alt="ACTS Colleges" onerror="this.style.display='none'" />
+          <div>
+            <span class="portal-kicker" style="color:var(--red)">System Administrator</span>
+            <h2>Admissions Management</h2>
+            <p>Review applications, manage documents, and update statuses.</p>
+          </div>
+        </div>
+        <div class="col-6 text-end">
+          <div class="d-flex justify-content-end align-items-center gap-2">
+            <span class="text-white-50 small fw-bold d-none d-sm-inline">Administrator</span>
+            <button class="btn btn-outline-light btn-sm fw-bold px-3 shadow-sm rounded-pill d-flex align-items-center gap-2" onclick="promptLogout()">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="py-4" style="background:var(--off); min-height:80vh">
+    <div class="container-fluid px-4 px-xl-5">
+
+      <div class="row g-4">
+        <!-- Main Content Area -->
+        <div class="col-xl-9 col-lg-8">
+          
+          <!-- Stats Row -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="admin-stat-card py-3">
+                <div class="admin-stat-icon"><i class="bi bi-people-fill"></i></div>
+                <div class="admin-stat-info">
+                  <h3 id="statTotal" class="mb-0">0</h3>
+                  <p class="mb-0 text-sm">Total Applications</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="admin-stat-card py-3">
+                <div class="admin-stat-icon" style="background:rgba(231,76,60,0.1); color:var(--red)"><i
+                    class="bi bi-clock-history"></i></div>
+                <div class="admin-stat-info">
+                  <h3 id="statPending" style="color:var(--red)" class="mb-0">0</h3>
+                  <p class="mb-0 text-sm">Pending Review</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="admin-stat-card py-3">
+                <div class="admin-stat-icon" style="background:rgba(39,174,96,0.1); color:#27ae60"><i
+                    class="bi bi-check-circle-fill"></i></div>
+                <div class="admin-stat-info">
+                  <h3 id="statApproved" style="color:#27ae60" class="mb-0">0</h3>
+                  <p class="mb-0 text-sm">Approved / Enrolled</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toolbar -->
+             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 bg-white p-3 rounded-4 border shadow-sm">
+             <div class="d-flex gap-2 align-items-center mb-2 mb-md-0">
+                 <div class="input-group input-group-sm" style="width: 250px;">
+                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                    <input type="text" id="searchApp" class="form-control border-start-0 bg-light" placeholder="Search applicant...">
+                 </div>
+                 <select id="filterStage" class="form-select form-select-sm bg-light" style="width: 150px;">
+                     <option value="">All Stages</option>
+                     <option value="Intake">Intake (New)</option>
+                     <option value="Assessment">Assessment</option>
+                     <option value="Decision">Decision Locked</option>
+                 </select>
+                 <select id="filterStatus" class="form-select form-select-sm bg-light" style="width: 150px;">
+                     <option value="">All Statuses</option>
+                     <option value="Pending">Pending</option>
+                     <option value="Under Review">Under Review</option>
+                     <option value="Documents Reviewed">Documents Reviewed</option>
+                     <option value="Exam Scheduled">Exam Scheduled</option>
+                     <option value="Approved">Approved</option>
+                     <option value="Enrolled">Enrolled</option>
+                 </select>
+             </div>
+             <div class="d-flex gap-2">
+                 <button class="btn btn-outline-primary btn-sm fw-bold" onclick="openBulkInterviewModal()"><i class="bi bi-people-fill me-1"></i> Interview Schedule</button>
+                 <button class="btn btn-outline-primary btn-sm fw-bold" onclick="openBulkExamModal()"><i class="bi bi-calendar-check me-1"></i> Exam Schedule</button>
+             </div>
+          </div>
+
+          <!-- Applications Table -->
+          <div class="table-container shadow-sm border rounded-4 overflow-visible">
+            <table class="table table-hover mb-0 align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 40px;" class="text-center"><input class="form-check-input" type="checkbox" id="selectAll"></th>
+                  <th style="width: 45%;">Applicant</th>
+                  <th style="width: 20%;" class="text-center">Stage</th>
+                  <th style="width: 20%;" class="text-center">Status</th>
+                  <th style="width: 15%;" class="text-end pe-4">Action</th>
+                </tr>
+              </thead>
+              <tbody id="appTableBody">
+                <tr>
+                  <td colspan="5" class="text-center py-5 text-muted">
+                    <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading applications...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="table-footer d-flex justify-content-between align-items-center">
+              <div class="small text-muted" id="pageInfo">Page 1</div>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-light border fw-bold" id="btnPrevPage"><i class="bi bi-chevron-left"></i></button>
+                <button class="btn btn-sm btn-light border fw-bold" id="btnNextPage"><i class="bi bi-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-xl-3 col-lg-4">
+          <div class="bg-white rounded-4 border h-100 p-4 shadow-sm d-flex flex-column">
+             <h6 class="fw-bold mb-3 border-bottom pb-2" style="color:var(--blue)">
+                <i class="bi bi-activity me-2"></i>Recent Transactions
+             </h6>
+             <div id="recentTransactionsList" class="flex-grow-1 overflow-auto" style="max-height: 600px;">
+                <div class="text-center py-4 text-muted small">
+                   <div class="spinner-border spinner-border-sm mb-2" role="status"></div><br>Loading logs...
+                </div>
+             </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Application Detail Modal -->
+  <div class="modal fade" id="appModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-bottom">
+          <h5 class="modal-title" style="font-family:'Merriweather',serif; color:var(--blue); font-weight:700">
+            <i class="bi bi-person-vcard text-danger me-2"></i>Application Details
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body bg-light">
+
+          <!-- Nav Tabs -->
+          <ul class="nav nav-tabs nav-pills w-100 nav-fill mb-4 gap-2" id="appTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active fw-bold border rounded-pill" id="tab-overview" data-bs-toggle="tab" data-bs-target="#pane-overview" type="button"><i class="bi bi-person-lines-fill me-2"></i>Overview</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link fw-bold border rounded-pill" id="tab-docs" data-bs-toggle="tab" data-bs-target="#pane-docs" type="button"><i class="bi bi-folder-fill me-2"></i>Documents</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link fw-bold border rounded-pill" id="tab-assess" data-bs-toggle="tab" data-bs-target="#pane-assess" type="button"><i class="bi bi-clipboard2-data-fill me-2"></i>Assessments</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link fw-bold border rounded-pill" id="tab-notes" data-bs-toggle="tab" data-bs-target="#pane-notes" type="button"><i class="bi bi-chat-quote-fill me-2"></i>Notes</button>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="appTabsContent">
+
+            <!-- 1. OVERVIEW PANE -->
+            <div class="tab-pane fade show active" id="pane-overview" role="tabpanel">
+              <div class="row g-4 mb-3">
+                <div class="col-md-6">
+                  <div class="bg-white p-3 rounded-4 border h-100 shadow-sm">
+                    <h6 class="fw-bold mb-3 text-primary border-bottom pb-2">Applicant Info</h6>
+                    <div class="mb-2" id="studentIdContainer" style="display:none;"><small class="text-success fw-bold d-block">Official Student ID</small><strong id="mStudentID" class="text-success fs-5"></strong></div>
+                    <div class="mb-2"><small class="text-muted d-block">Full Name</small><strong id="mName"></strong></div>
+                    <div class="mb-2"><small class="text-muted d-block">Reference</small><span id="mRef" class="badge bg-secondary"></span></div>
+                    <div class="mb-2"><small class="text-muted d-block">Email</small><span id="mEmail"></span></div>
+                    <div class="mb-2"><small class="text-muted d-block">Contact</small><span id="mContact"></span></div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="bg-white p-3 rounded-4 border h-100 shadow-sm">
+                    <h6 class="fw-bold mb-3 text-primary border-bottom pb-2">Academic Profile</h6>
+                    <div class="mb-2"><small class="text-muted d-block">Program</small><strong id="mProgram"></strong></div>
+                    <div class="mb-2"><small class="text-muted d-block">Applicant Type</small><span id="mType"></span></div>
+                    <div class="mb-2"><small class="text-muted d-block">Last School</small><span id="mSchool"></span></div>
+                    <div class="mb-2"><small class="text-muted d-block">Gen. Average</small><span id="mAvg"></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Update Status Form -->
+              <div class="bg-white p-4 rounded-4 border border-primary shadow-sm" style="background:rgba(46,120,184,0.02) !important">
+                <h6 class="fw-bold mb-3 text-primary border-bottom pb-2"><i class="bi bi-pencil-square me-2"></i>Update Application Status</h6>
+                <form id="updateStatusForm" onsubmit="handleUpdateStatus(event)">
+                  <input type="hidden" id="editAppId" />
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label class="form-label fw-bold small text-muted">Status</label>
+                      <select class="form-select text-sm shadow-sm" id="editStatus" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Under Review">Under Review</option>
+                        <option value="Documents Reviewed">Documents Reviewed</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Enrolled">Enrolled</option>
+                      </select>
+                    </div>
+                    <div class="col-12 text-end mt-4">
+                      <button type="submit" class="btn btn-primary px-4 fw-bold rounded-pill shadow-sm">Save Changes</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- 2. DOCUMENTS PANE -->
+            <div class="tab-pane fade" id="pane-docs" role="tabpanel">
+              <div class="bg-white p-4 rounded-4 border shadow-sm">
+                <h6 class="fw-bold mb-4 text-primary border-bottom pb-2"><i class="bi bi-images me-2"></i>Uploaded Documents</h6>
+                <div id="mDocs" class="d-flex flex-column gap-3"></div>
+              </div>
+            </div>
+
+            <!-- 3. ASSESSMENTS PANE -->
+            <div class="tab-pane fade" id="pane-assess" role="tabpanel">
+              <div class="row g-3">
+                <div class="col-12">
+                  <div class="bg-white p-4 rounded-4 border border-success border-opacity-25 shadow-sm mt-2">
+                    <h6 class="fw-bold mb-3 text-success border-bottom pb-2"><i class="bi bi-star-fill me-2"></i>Reviewer Evaluation & Final Recommendation</h6>
+                    <form id="evaluationForm" onsubmit="handleEvaluationSubmit(event)">
+                      <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                          <label class="form-label small fw-bold text-muted">Academic Rating (1-5)</label>
+                          <input type="number" step="0.1" min="1" max="5" class="form-control text-sm" id="evalAcademic" required />
+                        </div>
+                        <div class="col-md-4">
+                          <label class="form-label small fw-bold text-muted">Interview Rating (1-5)</label>
+                          <input type="number" step="0.1" min="1" max="5" class="form-control text-sm" id="evalInterview" required />
+                        </div>
+                        <div class="col-md-4">
+                          <label class="form-label small fw-bold text-muted">Extracurricular Rating (1-5)</label>
+                          <input type="number" step="0.1" min="1" max="5" class="form-control text-sm" id="evalExtracur" required />
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Reviewer Notes</label>
+                        <textarea class="form-control text-sm" id="evalNotes" rows="3" placeholder="Notes on applicant's fit..."></textarea>
+                      </div>
+                      <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">Final Recommendation</label>
+                        <select class="form-select fw-bold shadow-sm" id="evalRecommendation" style="color:var(--blue)">
+                          <option value="Approve" class="text-success">Approve for Admission</option>
+                          <option value="Waitlist" class="text-warning">Waitlist</option>
+                          <option value="Reject" class="text-danger">Reject</option>
+                        </select>
+                      </div>
+                      
+                      <button type="submit" class="btn btn-success btn-sm w-100 fw-bold rounded-pill shadow-sm"><i class="bi bi-floppy me-2"></i>Save Final Evaluation</button>
+                    </form>
+
+                    <hr class="my-3 text-success opacity-25">
+                    <div id="decisionPublishedMsg" class="alert alert-primary py-2 mb-0 d-none text-center">
+                      <i class="bi bi-check-circle-fill me-2"></i>Official Decision Published
+                    </div>
+                    <button type="button" id="btnPublishDecision" class="btn btn-primary w-100 fw-bold d-none rounded-pill shadow-sm" onclick="handlePublishDecision()">
+                      <i class="bi bi-envelope-paper-fill me-2"></i>Publish Official Decision to Applicant
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. NOTES PANE -->
+            <div class="tab-pane fade" id="pane-notes" role="tabpanel">
+              <div class="bg-white p-4 rounded-4 border shadow-sm h-100 d-flex flex-column">
+                 <h6 class="fw-bold mb-3 text-dark border-bottom pb-2"><i class="bi bi-chat-quote-fill me-2"></i>Internal Admin Notes</h6>
+                 <div id="mNotesList" class="flex-grow-1 overflow-auto px-2 mb-4" style="min-height: 250px; max-height: 500px;">
+                    <!-- JS injected notes -->
+                 </div>
+                 <form id="addNoteForm" onsubmit="handleAddNote(event)" class="mt-auto border-top pt-3">
+                    <label class="form-label small fw-bold text-muted">Add New Note</label>
+                    <div class="input-group shadow-sm">
+                       <input type="text" class="form-control border-end-0 bg-light" id="newAdminNote" placeholder="Type internal remarks..." required>
+                       <button class="btn btn-primary fw-bold px-4" type="submit">Post Note <i class="bi bi-send ms-1"></i></button>
+                    </div>
+                 </form>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Exam Modal -->
+  <div class="modal fade" id="bulkExamModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content text-center" style="border:none; border-radius:12px; overflow:hidden">
+        <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+          <div style="background:#e8f4fd; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:1.8rem;">
+            <i class="bi bi-calendar-check"></i>
+          </div>
+        </div>
+        <form onsubmit="submitBulkExam(event)">
+          <div class="modal-body pt-3 pb-2 text-start px-4">
+            <h5 class="fw-bold text-dark text-center mb-3" style="font-family:'Merriweather',serif">Bulk Schedule Exam</h5>
+            <p class="text-muted text-center mb-3" style="font-size:0.85rem">Scheduling exam for <strong id="bulkExamCount" class="text-primary fs-5">0</strong> selected applicants.</p>
+            <div class="mb-3">
+               <label class="form-label small fw-bold text-muted">Select Date & Time</label>
+               <input type="datetime-local" class="form-control text-sm shadow-sm border-primary" id="bulkExamDate" required>
+            </div>
+          </div>
+          <div class="modal-footer border-0 pt-0 pb-4 justify-content-center flex-nowrap gap-2 px-4">
+            <button type="button" class="btn btn-light border fw-bold w-50" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary fw-bold w-50" id="btnSubmitBulk">Schedule</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Interview Modal -->
+  <div class="modal fade" id="bulkInterviewModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content text-center" style="border:none; border-radius:12px; overflow:hidden">
+        <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+          <div style="background:#eaf4fc; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:1.8rem;">
+            <i class="bi bi-people-fill"></i>
+          </div>
+        </div>
+        <form onsubmit="submitBulkInterview(event)">
+          <div class="modal-body pt-3 pb-2 text-start px-4">
+            <h5 class="fw-bold text-dark text-center mb-3" style="font-family:'Merriweather',serif">Bulk Schedule Interview</h5>
+            <p class="text-muted text-center mb-3" style="font-size:0.85rem">Scheduling interviews for <strong id="bulkInterviewCount" class="text-primary fs-5">0</strong> selected applicants.</p>
+            <div class="mb-3">
+               <label class="form-label small fw-bold text-muted">Select Date & Time</label>
+               <input type="datetime-local" class="form-control text-sm shadow-sm border-primary" id="bulkIntDate" required>
+            </div>
+            <div class="mb-3">
+               <label class="form-label small fw-bold text-muted">Meeting Link / Location (optional)</label>
+               <input type="text" class="form-control text-sm shadow-sm" id="bulkIntLink" placeholder="Zoom/Meet link or room">
+            </div>
+            <div class="mb-2">
+               <label class="form-label small fw-bold text-muted">Status</label>
+               <select class="form-select text-sm shadow-sm" id="bulkIntStatus">
+                 <option>Scheduled</option>
+                 <option>Completed</option>
+                 <option>No Show</option>
+                 <option>Cancelled</option>
+               </select>
+            </div>
+          </div>
+          <div class="modal-footer border-0 pt-0 pb-4 justify-content-center flex-nowrap gap-2 px-4">
+            <button type="button" class="btn btn-light border fw-bold w-50" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary fw-bold w-50" id="btnSubmitBulkInterview">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Application Modal -->
+  <div class="modal fade" id="deleteAppModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content text-center" style="border:none; border-radius:12px; overflow:hidden">
+        <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+          <div
+            style="background:#fde8e8; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--red); font-size:1.8rem;">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
+        </div>
+        <div class="modal-body pt-3 pb-2">
+          <h5 class="fw-bold text-dark mb-2" style="font-family:'Merriweather',serif">Delete Application?</h5>
+          <p class="text-muted small mb-0" id="deleteAppText">Are you sure you want to permanently delete this
+            application? All uploaded documents will be lost. This cannot be undone.</p>
+        </div>
+        <div class="modal-footer border-0 pt-0 pb-4 justify-content-center flex-nowrap gap-2">
+          <button type="button" class="btn btn-light border fw-bold w-50" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger fw-bold w-50" id="confirmDeleteAppBtn">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content text-center" style="border:none; border-radius:12px; overflow:hidden">
+        <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+          <div style="background:#eaf4fc; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:1.8rem;">
+            <i class="bi bi-box-arrow-right"></i>
+          </div>
+        </div>
+        <div class="modal-body pt-3 pb-2">
+          <h5 class="fw-bold text-dark mb-2" style="font-family:'Merriweather',serif">Log Out?</h5>
+          <p class="text-muted small mb-0">Are you sure you want to securely log out of the Admin Portal?</p>
+        </div>
+        <div class="modal-footer border-0 pt-0 pb-4 justify-content-center flex-nowrap gap-2">
+          <button type="button" class="btn btn-light border fw-bold w-50" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary fw-bold w-50" onclick="handleLogout()">Log Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let applicationsData = [];
+    let filteredApps = [];
+    let currentPage = 1;
+    const pageSize = 10;
+    let modalInstance = null;
+    let deleteAppId = null;
+    let deleteModalInstance = null;
+    let logoutModalInstance = null;
+    let bulkModalInstance = null;
+    let bulkInterviewModalInstance = null;
+
+
+    window.addEventListener('load', () => {
+      modalInstance = new bootstrap.Modal(document.getElementById('appModal'));
+      deleteModalInstance = new bootstrap.Modal(document.getElementById('deleteAppModal'));
+      logoutModalInstance = new bootstrap.Modal(document.getElementById('logoutConfirmModal'));
+      bulkModalInstance = new bootstrap.Modal(document.getElementById('bulkExamModal'));
+      bulkInterviewModalInstance = new bootstrap.Modal(document.getElementById('bulkInterviewModal'));
+      loadAdminData();
+      setInterval(loadAdminData, 10000);
+
+      // Select All Checkbox
+      const selectAll = document.getElementById('selectAll');
+      if (selectAll) {
+         selectAll.addEventListener('change', (e) => {
+            const checks = document.querySelectorAll('.bulk-check');
+            checks.forEach(c => c.checked = e.target.checked);
+         });
+      }
+
+      // Pagination buttons
+      document.getElementById('btnPrevPage').addEventListener('click', () => changePage(currentPage - 1));
+      document.getElementById('btnNextPage').addEventListener('click', () => changePage(currentPage + 1));
+    });
+
+    async function loadAdminData() {
+      // --- Demo Intercept ---
+      if (localStorage.getItem('demoSession') === 'admin') {
+        const demoData = {
+          success: true,
+          stats: { total: 150, pending: 45, approved: 105 },
+          applications: [
+            { id: 1, fullName: 'Demo Student 1', reference_number: 'ACTS-2026-001', email: 'student1@test.com', status: 'Pending', statusClass: 'status-pending', submittedAt: new Date().toISOString(), contact: '0912 345 6789', program: 'BS Information Technology', applicantType: 'New Student', school: 'Demo High', average: '90' },
+            { id: 2, fullName: 'Demo Student 2', reference_number: 'ACTS-2026-002', email: 'student2@test.com', status: 'Approved', statusClass: 'status-approved', submittedAt: new Date().toISOString(), contact: '0912 345 6789', program: 'BS Computer Science', applicantType: 'New Student', school: 'Demo High', average: '95' }
+          ],
+          recentTransactions: [
+            { reference_number: 'ACTS-2026-001', first_name: 'Demo', last_name: 'Student 1', title: 'Application Submitted', created_at: new Date().toISOString() }
+          ]
+        };
+        document.getElementById('statTotal').textContent = demoData.stats.total;
+        document.getElementById('statPending').textContent = demoData.stats.pending;
+        document.getElementById('statApproved').textContent = demoData.stats.approved;
+
+        applicationsData = demoData.applications;
+        filteredApps = applicationsData;
+        currentPage = 1;
+        renderTable(filteredApps, currentPage);
+        if (demoData.recentTransactions) renderRecentTransactions(demoData.recentTransactions);
+        return;
+      }
+      // ----------------------
+      try {
+        const res = await fetch('api/get_admin_data.php', { cache: 'no-store' });
+        const data = await res.json();
+
+        if (!data.success) {
+          window.location.href = 'admissions.html';
+          return;
+        }
+
+        document.getElementById('statTotal').textContent = data.stats.total;
+        document.getElementById('statPending').textContent = data.stats.pending;
+        document.getElementById('statApproved').textContent = data.stats.approved;
+
+        applicationsData = data.applications;
+        filteredApps = applicationsData;
+        currentPage = 1;
+        renderTable(filteredApps, currentPage);
+        if (data.recentTransactions) renderRecentTransactions(data.recentTransactions);
+      } catch (err) {
+        alert('Failed to load admin data. Is Laragon running?');
+        console.error(err);
+      }
+    }
+
+    function renderRecentTransactions(logs) {
+      const container = document.getElementById('recentTransactionsList');
+      if (!container) return;
+      logs = logs.filter(log => (log.title || '').toLowerCase() !== 'under review by registrar');
+      container.innerHTML = '';
+      if (logs.length === 0) {
+        container.innerHTML = '<div class="text-muted small text-center py-4">No recent activity.</div>';
+        return;
+      }
+      logs.forEach(log => {
+        const d = new Date(log.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+        const div = document.createElement('div');
+        div.className = 'border-bottom pb-2 mb-2';
+        div.innerHTML = `
+          <div class="fw-bold small" style="color:var(--blue)">Ref: ${log.reference_number}</div>
+          <div class="small fw-semibold">${log.first_name} ${log.last_name}</div>
+          <div class="text-muted" style="font-size:0.75rem">${log.title}</div>
+          <div class="text-muted mt-1" style="font-size:0.7rem"><i class="bi bi-clock"></i> ${d}</div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function getAppStage(app) {
+      let stage = 'Intake';
+      if (app.documents && app.documents.length > 0) stage = 'Documents';
+      const sStat = (app.status || '').toLowerCase();
+      if (sStat.includes('document')) stage = 'Documents';
+      if (app.interview || app.evaluation || sStat.includes('exam')) stage = 'Assessment';
+      if (app.decision) stage = 'Decision';
+      return stage;
+    }
+
+    function filterApplications() {
+      const q = (document.getElementById('searchApp').value || '').toLowerCase();
+      const st = document.getElementById('filterStage').value;
+      const statusFilter = document.getElementById('filterStatus').value;
+
+      filteredApps = applicationsData.filter(app => {
+         const matchSearch = String(app.reference_number).toLowerCase().includes(q) || 
+                             String(app.fullName).toLowerCase().includes(q) || 
+                             String(app.email).toLowerCase().includes(q);
+         const matchStage = st ? getAppStage(app) === st : true;
+         const matchStatus = statusFilter ? app.status === statusFilter : true;
+         return matchSearch && matchStage && matchStatus;
+      });
+      currentPage = 1;
+      renderTable(filteredApps, currentPage);
+    }
+
+    function renderTable(apps, page = 1) {
+      const tbody = document.getElementById('appTableBody');
+      tbody.innerHTML = '';
+
+      if (!apps || apps.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No applications found.</td></tr>';
+        updatePagination(0, page);
+        return;
+      }
+
+      const total = apps.length;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      const safePage = Math.min(Math.max(1, page), totalPages);
+      currentPage = safePage;
+      const start = (safePage - 1) * pageSize;
+      const pageItems = apps.slice(start, start + pageSize);
+
+      apps.forEach((app, index) => {
+        if (index < start || index >= start + pageSize) return;
+        // We use the actual index in the global applicationsData array for the modal, so we find it:
+        const globalIndex = applicationsData.findIndex(a => a.id === app.id);
+        const tr = document.createElement('tr');
+
+        let badgeColor = 'bg-secondary';
+        if (app.statusClass.includes('pending')) badgeColor = 'bg-warning text-dark';
+        if (app.statusClass.includes('approved') || app.status.toLowerCase().includes('enrolled')) badgeColor = 'bg-success';
+        if (app.status.toLowerCase().includes('exam') || app.statusClass.includes('status-exam')) badgeColor = 'bg-info text-dark';
+        if (app.statusClass.includes('danger')) badgeColor = 'bg-danger';
+
+        const submitDate = new Date(app.submittedAt).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
+        const stage = getAppStage(app);
+        
+        // Stage Badge Color
+        let stageColor = 'bg-light text-dark border';
+        if (stage === 'Documents') stageColor = 'bg-primary text-white';
+        if (stage === 'Assessment') stageColor = 'bg-info text-dark';
+        if (stage === 'Decision') stageColor = 'bg-success text-white';
+
+        tr.innerHTML = `
+          <td class="text-center"><input class="form-check-input bulk-check" type="checkbox" value="${app.id}"></td>
+          <td>
+            <div class="fw-bold text-truncate" style="color:var(--blue); max-width: 250px;">${app.fullName}</div>
+            <div class="text-muted" style="font-size:0.75rem">${app.reference_number} • ${app.email}</div>
+          </td>
+          <td class="text-center"><span class="badge ${stageColor} rounded-pill px-3 py-2 w-100" style="max-width: 100px; font-size: 0.75rem;">${stage}</span></td>
+          <td class="text-center"><span class="badge ${badgeColor} rounded-pill px-3 py-2 w-100 text-truncate" style="max-width: 120px; font-size: 0.75rem;">${app.status}</span></td>
+          <td class="text-end text-nowrap pe-4">
+            <div class="dropdown">
+              <button class="btn btn-sm btn-light border dropdown-toggle fw-bold text-muted shadow-sm" type="button" data-bs-toggle="dropdown">
+                Actions
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="border-radius:12px;">
+                <li><a class="dropdown-item fw-bold text-primary py-2" href="#" onclick="openAppModal(${globalIndex}); return false;"><i class="bi bi-person-vcard-fill me-2"></i> View & Process</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger fw-bold py-2" href="#" onclick="handleDeleteApp(${app.id}, '${(app.fullName || '').replace(/'/g, "\\'")}'); return false;"><i class="bi bi-trash3-fill me-2"></i> Delete Application</a></li>
+              </ul>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updatePagination(total, safePage);
+      const selectAll = document.getElementById('selectAll');
+      if (selectAll) selectAll.checked = false;
+    }
+
+    function updatePagination(totalItems, page) {
+      const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+      const pageInfo = document.getElementById('pageInfo');
+      if (pageInfo) pageInfo.textContent = `Page ${totalItems === 0 ? 0 : page} of ${totalPages} • ${totalItems} record(s)`;
+      document.getElementById('btnPrevPage').disabled = page <= 1 || totalItems === 0;
+      document.getElementById('btnNextPage').disabled = page >= totalPages || totalItems === 0;
+    }
+
+    function changePage(nextPage) {
+      renderTable(filteredApps, nextPage);
+    }
+
+    // Attach Search / Filter Events
+    document.getElementById('searchApp').addEventListener('input', filterApplications);
+    document.getElementById('filterStage').addEventListener('change', filterApplications);
+    document.getElementById('filterStatus').addEventListener('change', filterApplications);
+
+    function openAppModal(index) {
+      const app = applicationsData[index];
+      if (!app) return;
+
+      document.getElementById('mName').textContent = app.fullName;
+      document.getElementById('mRef').textContent = app.reference_number;
+      document.getElementById('mEmail').textContent = app.email;
+
+      // Enrollment Check
+      if (app.enrollment) {
+          document.getElementById('studentIdContainer').style.display = 'block';
+          document.getElementById('mStudentID').textContent = app.enrollment.student_id;
+      } else {
+          document.getElementById('studentIdContainer').style.display = 'none';
+      }
+      document.getElementById('mContact').textContent = app.contact;
+
+      document.getElementById('mProgram').textContent = app.program;
+      document.getElementById('mType').textContent = app.applicantType;
+      document.getElementById('mSchool').textContent = app.school;
+      document.getElementById('mAvg').textContent = app.average || 'N/A';
+
+      // Docs
+      const docsContainer = document.getElementById('mDocs');
+      docsContainer.innerHTML = '';
+      if (app.documents && app.documents.length > 0) {
+        app.documents.forEach(doc => {
+          const row = document.createElement('div');
+          row.className = 'd-flex align-items-center justify-content-between border p-3 mb-2 rounded-4 bg-light shadow-sm';
+          
+          let badgeColor = 'bg-warning text-dark';
+          let docStatus = doc.status || 'Pending';
+          if (docStatus === 'Approved') badgeColor = 'bg-success';
+          if (docStatus === 'Rejected') badgeColor = 'bg-danger';
+
+          row.innerHTML = `
+            <div class="d-flex align-items-center gap-2">
+              <a href="${doc.file_path}" target="_blank" class="text-decoration-none fw-bold"><i class="bi bi-file-earmark-text"></i> ${doc.label}</a>
+              <span class="badge ${badgeColor}">${docStatus}</span>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-success fw-bold px-3 rounded-pill shadow-sm" onclick="reviewDocument(${doc.id}, 'Approved')" title="Approve">
+                Approve
+              </button>
+              <button class="btn btn-sm btn-outline-danger fw-bold px-3 rounded-pill shadow-sm" onclick="reviewDocument(${doc.id}, 'Rejected')" title="Reject & Request Resubmission">
+                Reject & Resubmit
+              </button>
+            </div>
+          `;
+          docsContainer.appendChild(row);
+        });
+      } else {
+        docsContainer.innerHTML = '<span class="text-muted small">No documents uploaded yet.</span>';
+      }
+
+      // Notes Setup
+      const notesContainer = document.getElementById('mNotesList');
+      notesContainer.innerHTML = '';
+      if (app.notes && app.notes.length > 0) {
+         app.notes.forEach(nn => {
+            const d = new Date(nn.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute:'2-digit' });
+            notesContainer.innerHTML += `
+               <div class="mb-3 border-bottom pb-2">
+                  <div class="d-flex justify-content-between">
+                     <strong class="text-primary small"><i class="bi bi-person-fill"></i> ${nn.admin_email}</strong>
+                     <span class="text-muted" style="font-size:0.7rem">${d}</span>
+                  </div>
+                  <div class="text-dark small mt-1 ps-3" style="border-left: 2px solid var(--blue);">${nn.note}</div>
+               </div>
+            `;
+         });
+      } else {
+         notesContainer.innerHTML = '<div class="text-muted small text-center py-3">No administrative notes yet.</div>';
+      }
+
+      // Form Setup
+
+        document.getElementById('editAppId').value = app.id;
+        const allowedStatuses = ['Pending','Under Review','Documents Reviewed','Approved','Enrolled'];
+        document.getElementById('editStatus').value = allowedStatuses.includes(app.status) ? app.status : 'Pending';
+
+        // Populate Evaluation if exists
+        const eAcademic = document.getElementById('evalAcademic');
+        const eInterview = document.getElementById('evalInterview');
+        const eExtracur = document.getElementById('evalExtracur');
+      const eNotes = document.getElementById('evalNotes');
+      const eRec = document.getElementById('evalRecommendation');
+      if (app.evaluation) {
+          eAcademic.value = app.evaluation.academic_rating || '';
+          eInterview.value = app.evaluation.interview_rating || '';
+          eExtracur.value = app.evaluation.extracurricular_rating || '';
+          eNotes.value = app.evaluation.evaluator_notes || '';
+          eRec.value = app.evaluation.final_recommendation || 'Waitlist';
+      } else {
+          eAcademic.value = ''; eInterview.value = ''; eExtracur.value = ''; eNotes.value = ''; eRec.value = 'Waitlist';
+      }
+
+      // Show Publish Decision button if Evaluated but not yet Published
+      const btnPublish = document.getElementById('btnPublishDecision');
+      const msgPublished = document.getElementById('decisionPublishedMsg');
+      
+      if (app.decision) {
+          // Already published
+          btnPublish.classList.add('d-none');
+          msgPublished.classList.remove('d-none');
+          msgPublished.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>Official Decision Published <a href="letter.php?token=${app.decision.letter_url}" target="_blank" class="fw-bold ms-2">(View Letter)</a>`;
+      } else if (app.evaluation) {
+          // Ready to publish
+          btnPublish.classList.remove('d-none');
+          msgPublished.classList.add('d-none');
+      } else {
+          // Cannot publish yet
+          btnPublish.classList.add('d-none');
+          msgPublished.classList.add('d-none');
+      }
+
+      modalInstance.show();
+    }
+
+    async function handleUpdateStatus(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      const appId = document.getElementById('editAppId').value;
+      const statusStr = document.getElementById('editStatus').value;
+
+      let sClass = 'status-pending';
+      let sIcon = 'bi bi-clock-history';
+      const statusLower = statusStr.toLowerCase();
+      if (statusLower.includes('document')) { sClass = 'status-approved'; sIcon = 'bi bi-journal-check'; }
+      else if (statusLower.includes('review')) { sClass = 'status-pending'; sIcon = 'bi bi-eye'; }
+      if (statusLower.includes('approved') || statusLower.includes('enrolled')) { sClass = 'status-approved'; sIcon = 'bi bi-check-circle'; }
+
+      try {
+        const res = await fetch('api/update_status.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            applicationId: appId,
+            status: statusStr,
+            statusClass: sClass,
+            statusIcon: sIcon,
+            timelineTitle: statusStr === 'Documents Reviewed' ? 'Documents Reviewed' : ('Status updated to: ' + statusStr),
+            timelineDate: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          modalInstance.hide();
+          loadAdminData(); // Refresh table
+        } else {
+          alert('Failed to update: ' + data.message);
+        }
+      } catch (err) {
+        alert('Connection error.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+      }
+    }
+
+    function promptLogout() {
+      logoutModalInstance.show();
+    }
+
+    async function handleLogout() {
+      if (localStorage.getItem('demoSession')) {
+        localStorage.removeItem('demoSession');
+        window.location.href = 'admissions.html';
+        return;
+      }
+      try {
+        await fetch('api/logout.php', { method: 'POST' });
+        window.location.href = 'admissions.html';
+      } catch (err) { }
+    }
+
+    async function handleEvaluationSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'Saving Evaluation...';
+      try {
+        const res = await fetch('api/submit_evaluation.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            applicationId: document.getElementById('editAppId').value,
+            academicRating: document.getElementById('evalAcademic').value,
+            interviewRating: document.getElementById('evalInterview').value,
+            extracurRating: document.getElementById('evalExtracur').value,
+            recommendation: document.getElementById('evalRecommendation').value,
+            notes: document.getElementById('evalNotes').value
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+            alert('Evaluation saved successfully! You may now update the Official Status to match the Recommendation.');
+            loadAdminData();
+        } else {
+            alert(data.message);
+        }
+      } catch(err) { alert('Error saving evaluation.'); }
+      btn.disabled = false;
+      btn.innerHTML = origText;
+    }
+
+    async function handlePublishDecision() {
+      if (!confirm('Are you sure you want to officially publish this decision? The applicant will immediately see their Official Admission Letter. This action cannot be undone.')) return;
+
+      const btn = document.getElementById('btnPublishDecision');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.textContent = 'Publishing...';
+      try {
+        const res = await fetch('api/publish_decision.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            applicationId: document.getElementById('editAppId').value
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+            alert('Decision Officially Published!');
+            modalInstance.hide();
+            loadAdminData();
+        } else {
+            alert(data.message);
+        }
+      } catch(err) { alert('Error publishing decision.'); }
+      btn.disabled = false;
+      btn.innerHTML = origText;
+    }
+
+    /* ── Delete Application Handler ── */
+    function handleDeleteApp(id, name) {
+      deleteAppId = id;
+      document.getElementById('deleteAppText').innerHTML = `Are you sure you want to permanently delete the application for <strong>${name}</strong>? All uploaded documents will be lost. This cannot be undone.`;
+      deleteModalInstance.show();
+    }
+
+    document.getElementById('confirmDeleteAppBtn').addEventListener('click', async () => {
+      if (!deleteAppId) return;
+
+      const btn = document.getElementById('confirmDeleteAppBtn');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Deleting...';
+
+      try {
+        const res = await fetch('api/delete_application.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applicationId: deleteAppId })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          deleteModalInstance.hide();
+          loadAdminData(); // Refresh UI instantly
+        } else {
+          alert(data.message || 'Could not delete application.');
+        }
+      } catch (err) {
+        alert('Connection error. Please make sure Laragon is running.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+        deleteAppId = null;
+      }
+    });
+
+    /* ── Review Document Handler ── */
+    async function reviewDocument(docId, newStatus) {
+      if (!confirm(`Are you sure you want to mark this document as ${newStatus}?`)) return;
+
+      let reason = '';
+      if (newStatus === 'Rejected') {
+        reason = prompt('Please provide a reason for rejection (this will notify the applicant to resubmit):');
+        if (reason === null) return; // cancelled
+      }
+
+      try {
+        const res = await fetch('api/review_document.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ documentId: docId, status: newStatus, rejectionReason: reason })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+          // Instead of hiding modal, just softly reload data
+          loadAdminData(); 
+          setTimeout(() => { openAppModal(document.getElementById('editAppId').value ? applicationsData.findIndex(a=>a.id == document.getElementById('editAppId').value) : 0); }, 500);
+        } else {
+          alert(data.message || 'Failed to update document status.');
+        }
+      } catch(err) {
+        alert('Connection error.');
+      }
+    }
+
+    async function handleAddNote(e) {
+      // (Original Code Block Here was previously submitted via multi_replace in an earlier step)
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const input = document.getElementById('newAdminNote');
+      const noteText = input.value;
+      const appId = document.getElementById('editAppId').value;
+      if (!noteText.trim() || !appId) return;
+
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '...';
+      try {
+        const res = await fetch('api/admin_note.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applicationId: appId, note: noteText })
+        });
+        const data = await res.json();
+        if (data.success) {
+           input.value = '';
+           loadAdminData();
+           setTimeout(() => { openAppModal(applicationsData.findIndex(a=>a.id == appId)); }, 500);
+        } else { alert(data.message); }
+      } catch (err) { alert('Error adding note.'); }
+      btn.disabled = false;
+      btn.innerHTML = origText;
+    }
+
+    /* ── Bulk Actions ── */
+    function getSelectedAppIds() {
+       const checks = document.querySelectorAll('.bulk-check:checked');
+       return Array.from(checks).map(c => parseInt(c.value));
+    }
+
+    function openBulkExamModal() {
+       const ids = getSelectedAppIds();
+       if (ids.length === 0) {
+          alert('Please select at least one applicant from the table first.');
+          return;
+       }
+       document.getElementById('bulkExamCount').textContent = ids.length;
+       document.getElementById('bulkExamDate').value = '';
+       bulkModalInstance.show();
+    }
+
+    async function submitBulkExam(e) {
+       e.preventDefault();
+       const ids = getSelectedAppIds();
+       if (ids.length === 0) return;
+
+       const dateStr = document.getElementById('bulkExamDate').value;
+       if (!dateStr) return;
+
+       const btn = document.getElementById('btnSubmitBulk');
+       const orig = btn.innerHTML;
+       btn.disabled = true;
+       btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+       try {
+          const res = await fetch('api/bulk_schedule_exam.php', {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({ applicationIds: ids, examDate: dateStr })
+          });
+          const data = await res.json();
+          if (data.success) {
+             bulkModalInstance.hide();
+             document.getElementById('selectAll').checked = false;
+             loadAdminData(); // Refresh table dynamically
+             alert(data.message);
+          } else {
+             alert(data.message);
+          }
+       } catch (err) {
+          alert('Connection error. Could not schedule bulk exams.');
+       }
+       btn.disabled = false;
+       btn.innerHTML = orig;
+    }
+
+    function openBulkInterviewModal() {
+       const ids = getSelectedAppIds();
+       if (ids.length === 0) {
+          alert('Please select at least one applicant from the table first.');
+          return;
+       }
+       document.getElementById('bulkInterviewCount').textContent = ids.length;
+       document.getElementById('bulkIntDate').value = '';
+       document.getElementById('bulkIntLink').value = '';
+       document.getElementById('bulkIntStatus').value = 'Scheduled';
+       bulkInterviewModalInstance.show();
+    }
+
+    async function submitBulkInterview(e) {
+       e.preventDefault();
+       const ids = getSelectedAppIds();
+       if (ids.length === 0) return;
+
+       const dateStr = document.getElementById('bulkIntDate').value;
+       if (!dateStr) return;
+
+       const btn = document.getElementById('btnSubmitBulkInterview');
+       const orig = btn.innerHTML;
+       btn.disabled = true;
+       btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+       try {
+          const res = await fetch('api/bulk_schedule_interview.php', {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({
+                applicationIds: ids,
+                scheduleDate: dateStr.replace('T',' '),
+                meetingLink: document.getElementById('bulkIntLink').value,
+                status: document.getElementById('bulkIntStatus').value
+             })
+          });
+          const data = await res.json();
+          if (data.success) {
+             bulkInterviewModalInstance.hide();
+             document.getElementById('selectAll').checked = false;
+             loadAdminData();
+             alert(data.message);
+          } else {
+             alert(data.message || 'Could not schedule interviews.');
+          }
+       } catch (err) {
+          alert('Connection error. Could not schedule interviews.');
+       }
+       btn.disabled = false;
+       btn.innerHTML = orig;
+    }
+
+  </script>
+</body>
+
+</html>

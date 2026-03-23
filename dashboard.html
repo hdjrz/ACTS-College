@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACTS Colleges Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="icon" href="image/logo1.png">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/admissions.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+
+<body>
+
+  <div id="loader">
+    <div class="ld-spin">
+      <img class="ld-img" src="image/logo.png" alt="ACTS Colleges"
+        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22%3E%3Ccircle cx=%2240%22 cy=%2240%22 r=%2238%22 fill=%22%23003087%22/%3E%3Ctext x=%2240%22 y=%2248%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-weight=%22900%22 font-size=%2218%22 fill=%22white%22%3EACTS%3C/text%3E%3C/svg%3E'" />
+    </div>
+    <div class="ld-name">
+      ACTS Colleges
+      <small>Asian Christian Technological School &amp; Colleges</small>
+    </div>
+    <div class="ld-track">
+      <div class="ld-bar"></div>
+    </div>
+  </div>
+
+  <header class="portal-shell">
+    <div class="container">
+      <div class="portal-shell-inner">
+        <div class="portal-brand">
+          <img src="image/logo.png" alt="ACTS Colleges" onerror="this.style.display='none'" />
+          <div>
+            <span class="portal-kicker">ACTS Colleges</span>
+            <h2>Admissions Dashboard</h2>
+            <p>Track your application status and next admission steps.</p>
+          </div>
+        </div>
+        <div class="portal-meta">
+          <a class="portal-chip" href="mailto:admissions@acts.edu.ph"><i
+              class="bi bi-envelope-fill"></i>admissions@acts.edu.ph</a>
+          <span class="portal-chip"><i class="bi bi-telephone-fill"></i>+63 (02) 8XXX-XXXX</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="auth-section dashboard-section">
+    <div class="container">
+      <div class="auth-container dashboard-container">
+        <div class="auth-panel active">
+          <div class="dash-header">
+            <div class="dash-user">
+              <div class="dash-avatar"><i class="bi bi-person-fill"></i></div>
+              <div>
+                <div class="dash-name" id="dashName">Applicant Name</div>
+                <div class="dash-ref" id="dashRef">Reference: ACTS-2026-000000</div>
+              </div>
+            </div>
+            <div class="user-actions">
+              <button class="btn-logout" onclick="promptLogout()">
+                <i class="bi bi-box-arrow-right"></i>Logout
+              </button>
+            </div>
+          </div>
+
+          <div class="dashboard-shell">
+            <div class="dash-side dash-side-horizontal mb-3">
+              <button class="dash-side-btn active" data-view="overview" onclick="switchDashboardView('overview', this)">
+                <i class="bi bi-layout-text-window-reverse"></i>Application Overview
+              </button>
+              <button class="dash-side-btn" data-view="details" onclick="switchDashboardView('details', this)">
+                <i class="bi bi-person-vcard"></i>Application Details
+              </button>
+              <button class="dash-side-btn" data-view="uploaded" onclick="switchDashboardView('uploaded', this)">
+                <i class="bi bi-images"></i>Uploaded Documents
+              </button>
+            </div>
+            <div class="dash-main">
+              <section class="dash-view active" id="dashViewUploaded">
+                <div class="dash-view-head">
+                  <h6><i class="bi bi-images"></i>Uploaded Documents</h6>
+                  <p>These are the files submitted with your application.</p>
+                </div>
+                <div class="row g-3 mb-4" id="dashboardUploadSection"></div>
+                <div class="upload-grid" id="uploadedDocsGrid"></div>
+              </section>
+
+              <section class="dash-view" id="dashViewOverview">
+                <div class="dash-cards">
+                  <div class="dash-stat">
+                <div class="dash-stat-label">Application Status</div>
+                <div class="dash-stat-value d-flex align-items-center gap-2">
+                  <span class="status-badge status-pending" id="dashStatus"><i class="bi bi-clock-history"></i>Under Review</span>
+                  <button id="toggleUploadBtn" class="btn btn-outline-primary btn-sm d-none ms-auto" style="white-space:nowrap">
+                    <i class="bi bi-toggle2-on"></i> Toggle Uploads
+                  </button>
+                </div>
+              </div>
+                  <div class="dash-stat">
+                    <div class="dash-stat-label">Interview</div>
+                    <div class="dash-stat-value"><span class="status-badge status-pending" id="dashInterview"><i class="bi bi-calendar-event"></i>Pending..</span></div>
+                  </div>
+                  <div class="dash-stat">
+                    <div class="dash-stat-label">Entrance Exam</div>
+                    <div class="dash-stat-value"><span class="status-badge status-pending" id="dashExam"><i class="bi bi-calendar3"></i>Pending..</span></div>
+                  </div>
+                </div>
+
+                <div class="review-card">
+                  <h6><i class="bi bi-clock-history"></i>Application Timeline</h6>
+                  <div class="timeline-track">
+                    <div class="tl-item done">
+                      <div class="tl-title">Application Submitted</div>
+                      <div class="tl-date" id="tlSubmittedDate">March 14, 2026 9:15 AM</div>
+                    </div>
+                    <div class="tl-item done">
+                      <div class="tl-title">Documents Received</div>
+                      <div class="tl-date" id="tlDocumentsDate">March 15, 2026 11:40 AM</div>
+                    </div>
+                    <div class="tl-item upcoming">
+                      <div class="tl-title">Entrance Examination</div>
+                      <div class="tl-date" id="tlExamDate">Pending..</div>
+                    </div>
+                    <div class="tl-item upcoming">
+                      <div class="tl-title">Results and Enrollment</div>
+                      <div class="tl-date">Pending</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="dash-view" id="dashViewDetails">
+                <div class="review-card">
+                  <h6><i class="bi bi-person-vcard"></i>Application Details</h6>
+                  <div class="review-row"><span class="review-label">Full Name</span><span class="review-value"
+                      id="detailName">Angela Mae Villanueva</span></div>
+                  <div class="review-row"><span class="review-label">Email</span><span class="review-value"
+                      id="detailEmail">admissions.demo@acts.edu.ph</span></div>
+                  <div class="review-row"><span class="review-label">Contact</span><span class="review-value"
+                      id="detailContact">0917 555 0188</span></div>
+                  <div class="review-row"><span class="review-label">Program</span><span class="review-value"
+                      id="detailProgram">BS Information Technology</span></div>
+                  <div class="review-row"><span class="review-label">Applicant Type</span><span class="review-value"
+                      id="detailType">New Student (Freshman)</span></div>
+                  <div class="review-row"><span class="review-label">Last School</span><span class="review-value"
+                      id="detailSchool">Taguig National High School</span></div>
+                  <div class="review-row"><span class="review-label">Year Completed</span><span class="review-value"
+                      id="detailYear">Grade 12 - 2025-2026</span></div>
+                  <div class="review-row"><span class="review-label">General Average</span><span class="review-value"
+                      id="detailAverage">91.2</span></div>
+                </div>
+
+                <div class="review-card mt-3">
+                  <h6><i class="bi bi-paperclip"></i>Submitted Documents</h6>
+                  <div id="submittedDocsList"></div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="portal-footer">
+    <div class="container">
+      <div class="portal-footer-inner">
+        <span>&copy; 2026 ACTS Colleges Admissions Portal</span>
+        <a href="mailto:admissions@acts.edu.ph">admissions@acts.edu.ph</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content text-center" style="border:none; border-radius:12px; overflow:hidden">
+        <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+          <div
+            style="background:#fde8e8; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--red); font-size:1.8rem;">
+            <i class="bi bi-trash3-fill"></i>
+          </div>
+        </div>
+        <div class="modal-body pt-3 pb-2">
+          <h5 class="fw-bold text-dark mb-2" style="font-family:'Merriweather',serif">Delete Document?</h5>
+          <p class="text-muted small mb-0" id="deleteConfirmText">Are you sure you want to delete this document? You can
+            re-upload it later.</p>
+        </div>
+        <div class="modal-footer border-0 pt-0 pb-4 justify-content-center flex-nowrap gap-2">
+          <button type="button" class="btn btn-light border fw-bold w-50" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger fw-bold w-50" id="confirmDeleteBtn">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content text-center" style="border:none; border-radius:12px; overflow:hidden">
+        <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+          <div
+            style="background:#eaf4fc; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--blue); font-size:1.8rem;">
+            <i class="bi bi-box-arrow-right"></i>
+          </div>
+        </div>
+        <div class="modal-body pt-3 pb-2">
+          <h5 class="fw-bold text-dark mb-2" style="font-family:'Merriweather',serif">Log Out?</h5>
+          <p class="text-muted small mb-0">Are you sure you want to securely log out of your Applicant Portal?</p>
+        </div>
+        <div class="modal-footer border-0 pt-0 pb-4 justify-content-center flex-nowrap gap-2">
+          <button type="button" class="btn btn-light border fw-bold w-50" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary fw-bold w-50" onclick="handleLogout()">Log Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // --- Status Helper ---
+    function getStatusType(status) {
+      if (!status) return 'unknown';
+      const s = status.toLowerCase();
+      if (s.includes('under review')) return 'under_review';
+      if (s.includes('approved')) return 'approved';
+      if (s.includes('enrolled')) return 'enrolled';
+      if (s.includes('waitlist')) return 'waitlist';
+      if (s.includes('rejected')) return 'rejected';
+      if (s.includes('pending')) return 'pending';
+      return s.replace(/\s+/g, '_');
+    }
+    // --- Upload Toggle State ---
+    let uploadsVisible = true;
+    let deleteModalInstance = null;
+    let logoutModalInstance = null;
+    let docToDeleteId = null;
+
+    window.addEventListener('load', () => {
+      deleteModalInstance = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+      logoutModalInstance = new bootstrap.Modal(document.getElementById('logoutConfirmModal'));
+      setTimeout(() => {
+        const el = document.getElementById('loader');
+        el.classList.add('hide');
+        el.addEventListener('transitionend', () => el.remove(), { once: true });
+      }, 2000);
+    });
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function renderUploadBoxes(docsList) {
+      const section = document.getElementById('dashboardUploadSection');
+      if (!section) return;
+      section.innerHTML = '';
+
+      const uploadTypes = [
+        { title: 'Form 138 / Report Card', label: 'Form 138 / Report Card', accept: '.jpg,.jpeg,.png,.pdf' },
+        { title: 'PSA Birth Certificate', label: 'PSA Birth Certificate', accept: '.jpg,.jpeg,.png,.pdf' },
+        { title: '2x2 ID Photo', label: '2x2 ID Photo', accept: '.jpg,.jpeg,.png' }
+      ];
+
+      uploadTypes.forEach(ty => {
+        const found = (docsList || []).find(d => d.label === ty.label);
+
+        let contentHtml = '';
+        let outerStyle = 'min-height:100px; padding:1rem; cursor:pointer; transition:all 0.2s';
+
+        if (found) {
+          outerStyle += '; border-color: var(--blue); background: rgba(46,120,184,0.04)';
+          contentHtml = `
+            <i class="bi bi-check-circle-fill d-block text-success" style="font-size:1.2rem"></i>
+            <p style="margin-bottom:0; font-size:0.75rem; color:var(--text); line-height:1.2; word-break:break-all"><strong>${found.file_name}</strong><br><span class="text-muted">Uploaded!</span></p>
+          `;
+        } else {
+          contentHtml = `
+            <i class="bi bi-cloud-arrow-up d-block" style="font-size:1.2rem"></i>
+            <p style="margin-bottom:0; font-size:0.75rem"><span class="file-label">Click to upload</span></p>
+            <input type="file" accept="${ty.accept}" style="display:none" onchange="handleDashboardUpload(this, '${ty.label}')" />
+          `;
+        }
+
+        const col = document.createElement('div');
+        col.className = 'col-md-4';
+        col.innerHTML = `
+          <label class="form-label fw-bold text-primary" style="font-size:0.8rem; margin-bottom:0.3rem">${ty.title}</label>
+          <div class="file-upload-area text-center border rounded-3 d-flex flex-column align-items-center justify-content-center" 
+               style="${outerStyle}"
+               onclick="${found ? '' : "this.querySelector('input').click()"}">
+            ${contentHtml}
+          </div>
+        `;
+        section.appendChild(col);
+      });
+    }
+
+    function isImageDocument(documentItem) {
+      const fileType = (documentItem.file_type || '').toLowerCase();
+      const fileName = (documentItem.file_name || '').toLowerCase();
+      return fileType.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName);
+    }
+
+    function renderUploadedDocuments(documentsList) {
+      const grid = document.getElementById('uploadedDocsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      if (!Array.isArray(documentsList) || documentsList.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'upload-empty';
+        empty.innerHTML = '<i class="bi bi-image"></i><span>No uploaded images yet.</span>';
+        grid.appendChild(empty);
+        return;
+      }
+
+      documentsList.forEach(documentItem => {
+        const card = document.createElement('article');
+        card.className = 'upload-card';
+        card.style.position = 'relative';
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn text-danger p-0';
+        deleteBtn.innerHTML = '<i class="bi bi-x-circle-fill"></i>';
+        deleteBtn.style.position = 'absolute';
+        deleteBtn.style.top = '10px';
+        deleteBtn.style.right = '10px';
+        deleteBtn.style.backgroundColor = 'rgba(255,255,255,0.9)';
+        deleteBtn.style.borderRadius = '50%';
+        deleteBtn.style.border = 'none';
+        deleteBtn.title = 'Delete Document';
+        deleteBtn.onclick = () => handleDeleteUpload(documentItem.id, documentItem.label);
+
+        const preview = document.createElement('div');
+        preview.className = 'upload-preview';
+        if (isImageDocument(documentItem) && documentItem.file_path) {
+          const img = document.createElement('img');
+          img.src = documentItem.file_path;
+          img.alt = documentItem.label || 'Uploaded image';
+          preview.appendChild(img);
+        } else {
+          preview.innerHTML = '<i class="bi bi-file-earmark-text"></i>';
+        }
+
+        const label = document.createElement('div');
+        label.className = 'upload-label mt-2';
+        label.innerHTML = `<strong>${documentItem.label || 'Document'}</strong>`;
+
+        const name = document.createElement('div');
+        name.className = 'upload-name text-muted small';
+        name.textContent = documentItem.file_name || 'File not available';
+
+        const statusLabel = document.createElement('div');
+        statusLabel.className = 'mt-1 mb-1';
+        let badgeColor = 'bg-secondary';
+        let docStatus = documentItem.status || 'Pending';
+        if (docStatus === 'Approved') badgeColor = 'bg-success';
+        if (docStatus === 'Rejected') {
+          badgeColor = 'bg-danger';
+          const reasonDiv = document.createElement('div');
+          reasonDiv.className = 'text-danger small mt-1';
+          reasonDiv.innerHTML = `<i class="bi bi-exclamation-triangle"></i> Reason: ${documentItem.rejection_reason || 'See admin'}`;
+          statusLabel.appendChild(reasonDiv);
+        }
+        
+        const badge = document.createElement('span');
+        badge.className = `badge ${badgeColor}`;
+        badge.textContent = docStatus;
+        statusLabel.prepend(badge);
+
+        card.appendChild(preview);
+        card.appendChild(deleteBtn);
+        card.appendChild(label);
+        card.appendChild(name);
+        card.appendChild(statusLabel);
+        grid.appendChild(card);
+      });
+    }
+
+    function renderSubmittedDocuments(documentsList) {
+      const container = document.getElementById('submittedDocsList');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!Array.isArray(documentsList) || documentsList.length === 0) {
+        container.innerHTML = '<div class="review-row"><span class="review-label">No documents uploaded yet</span><span class="review-value" style="color:#e74c3c">Pending</span></div>';
+        return;
+      }
+
+      documentsList.forEach(documentItem => {
+        const row = document.createElement('div');
+        row.className = 'review-row';
+
+        const label = document.createElement('span');
+        label.className = 'review-label';
+        label.innerHTML = '<i class="bi bi-file-earmark-text text-primary me-1"></i>' + (documentItem.label || 'Document');
+
+        const value = document.createElement('span');
+        value.className = 'review-value fw-bold';
+        
+        let docStatus = documentItem.status || 'Pending';
+        if (docStatus === 'Approved') {
+          value.style.color = '#27ae60';
+        } else if (docStatus === 'Rejected') {
+          value.style.color = '#e74c3c';
+        } else {
+          value.style.color = '#7f8c8d';
+        }
+        value.textContent = docStatus;
+
+        row.appendChild(label);
+        row.appendChild(value);
+        container.appendChild(row);
+      });
+    }
+
+    function renderTimeline(timeline) {
+      if (!Array.isArray(timeline)) return;
+      // Remove Registrar-only step for cleaner view
+      timeline = timeline.filter(ev => (ev.title || '').toLowerCase() !== 'under review by registrar');
+      const track = document.querySelector('.timeline-track');
+      if (!track) return;
+
+      track.innerHTML = ''; // Clear hardcoded ones
+
+      timeline.forEach(event => {
+        const itemClass = event.status || 'upcoming';
+        const title = event.title || 'Step';
+        let date = event.event_date || '';
+
+        // Remove unused/placeholder gray text
+        if (date === 'Pending..' || date === 'Pending' || date === 'Pending verification' || date === 'To be scheduled') {
+          date = '';
+        }
+
+        const div = document.createElement('div');
+        div.className = 'tl-item ' + itemClass;
+        div.innerHTML = `<div class="tl-title">${title}</div>`;
+        if (date) {
+          div.innerHTML += `<div class="tl-date">${date}</div>`;
+        }
+        track.appendChild(div);
+      });
+    }
+
+    function switchDashboardView(view, button) {
+      document.querySelectorAll('.dash-side-btn').forEach(btn => btn.classList.remove('active'));
+      if (button) button.classList.add('active');
+
+      document.querySelectorAll('.dash-view').forEach(panel => panel.classList.remove('active'));
+      let panelId = 'dashViewOverview';
+      if (view === 'uploaded') panelId = 'dashViewUploaded';
+      if (view === 'details') panelId = 'dashViewDetails';
+      const panel = document.getElementById(panelId);
+      if (panel) panel.classList.add('active');
+    }
+
+    function renderDashboard(data) {
+      const d = data.display;
+      const docs = data.documents || [];
+
+
+      setText('dashName', d.fullName || 'Applicant');
+      setText('dashRef', 'Reference: ' + (d.reference || 'Not available'));
+      setText('dashProgram', d.program || 'Program To Be Announced');
+      setText('dashDocuments', d.documentsText || 'No documents');
+
+      // --- Upload Toggle Button Logic ---
+      const toggleBtn = document.getElementById('toggleUploadBtn');
+      const statusType = getStatusType(d.status);
+      const canUpload = statusType === 'under_review';
+      if (toggleBtn) {
+        // Only show if admin and status is Under Review
+        const isAdmin = (data.user && data.user.role === 'admin');
+        if (isAdmin && statusType === 'under_review') {
+          toggleBtn.classList.remove('d-none');
+        } else {
+          toggleBtn.classList.add('d-none');
+        }
+        // Set initial state
+        uploadsVisible = true;
+        document.getElementById('dashboardUploadSection').style.display = '';
+        document.getElementById('uploadedDocsGrid').style.display = '';
+      }
+
+      // Show uploads tab only when status is Under Review
+      const uploadTabBtn = document.querySelector('.dash-side-btn[data-view="uploaded"]');
+      const uploadView = document.getElementById('dashViewUploaded');
+      if (uploadTabBtn && uploadView) {
+        if (canUpload) {
+          uploadTabBtn.style.display = '';
+          uploadView.style.display = '';
+        } else {
+          uploadTabBtn.style.display = 'none';
+          uploadView.style.display = 'none';
+          // If currently on uploads, switch back to overview
+          const activeBtn = document.querySelector('.dash-side-btn.active');
+          if (activeBtn && activeBtn.dataset.view === 'uploaded') {
+            const defaultBtn = document.querySelector('.dash-side-btn[data-view="overview"]');
+            switchDashboardView('overview', defaultBtn);
+          }
+        }
+      }
+
+      const statusEl = document.getElementById('dashStatus');
+      if (statusEl) {
+        statusEl.className = 'status-badge ' + (d.statusClass || 'status-pending');
+        statusEl.innerHTML = '<i class="' + (d.statusIcon || 'bi bi-clock-history') + '"></i>' + (d.status || 'Under Review');
+      }
+
+      // Interview Stats
+      const intEl = document.getElementById('dashInterview');
+      if (intEl) {
+        if (data.interview) {
+          const dInt = new Date(data.interview.schedule_date.replace(' ', 'T'));
+          let html = `<i class="bi bi-calendar-event"></i>${dInt.toLocaleDateString('en-US', {month:'short', day:'numeric'})} - ${dInt.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'})}`;
+          if (data.interview.meeting_link) {
+            html += ` <br><a href="${data.interview.meeting_link}" target="_blank" style="color:var(--blue); font-size:0.8rem; text-decoration:underline">(Meeting Link)</a>`;
+          }
+          intEl.className = 'status-badge status-exam';
+          intEl.innerHTML = html;
+        } else {
+          intEl.className = 'status-badge status-pending';
+          intEl.innerHTML = '<i class="bi bi-calendar-event"></i>To be scheduled';
+        }
+      }
+
+      // Exam Stats
+      const examEl = document.getElementById('dashExam');
+      if (examEl) {
+        const examDateText = (examItem) => {
+          if (!examItem || !examItem.exam_date) return null;
+          const eDate = new Date(examItem.exam_date.replace(' ', 'T'));
+          return isNaN(eDate.getTime())
+            ? examItem.exam_date
+            : `${eDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})} ${eDate.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'})}`;
+        };
+
+        if (data.entranceExam) {
+          const text = examDateText(data.entranceExam);
+          examEl.className = data.entranceExam.status === 'Passed' ? 'status-badge status-approved' :
+                             data.entranceExam.status === 'Failed' ? 'status-badge bg-danger text-white' : 'status-badge status-exam';
+          examEl.innerHTML = `<i class="bi bi-pencil-square"></i>${text || 'Scheduled'} - ${data.entranceExam.status}`;
+        } else if (d.examSchedule && d.examSchedule !== 'To be scheduled') {
+          const eDate = new Date(d.examSchedule.replace(' ', 'T'));
+          const text = isNaN(eDate.getTime())
+            ? d.examSchedule
+            : `${eDate.toLocaleDateString('en-US', {month:'short', day:'numeric'})} ${eDate.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'})}`;
+          examEl.className = 'status-badge status-exam';
+          examEl.innerHTML = `<i class="bi bi-pencil-square"></i>${text}`;
+        } else {
+          examEl.className = 'status-badge status-pending';
+          examEl.innerHTML = '<i class="bi bi-calendar3"></i>To be scheduled';
+        }
+      }
+
+      // Smart Timeline Progression filtered to key steps
+      const timelineSafe = Array.isArray(data.timeline) ? [...data.timeline] : [];
+      const sStatus = (d.status || '').toLowerCase();
+
+      const milestone = (() => {
+        if (sStatus.includes('approved') || sStatus.includes('enrolled')) return 6;
+        if (sStatus.includes('exam')) return 5;
+        if (data.interview || sStatus.includes('interview')) return 4;
+        if (sStatus.includes('document') || sStatus.includes('review')) return 3;
+        return 2; // submitted/pending
+      })();
+
+      const keySteps = [
+        { key: 'submitted', title: 'Application Submitted', order: 1, match: (t) => t.includes('submitted') },
+        { key: 'under_review', title: 'Under Review', order: 2, match: (t) => t.includes('under review') },
+        { key: 'docs', title: 'Documents Reviewed', order: 3, match: (t) => t.includes('document') },
+        { key: 'interview', title: 'Interview', order: 4, match: (t) => t.includes('interview') },
+        { key: 'exam', title: 'Entrance Examination', order: 5, match: (t) => t.includes('exam') },
+        { key: 'decision', title: 'Results and Enrollment', order: 6, match: (t) => t.includes('result') || t.includes('enroll') || t.includes('approve') },
+      ];
+
+      const fmtDate = (str) => {
+        if (!str) return '';
+        const dd = new Date(str.replace(' ', 'T'));
+        return isNaN(dd.getTime()) ? str : dd.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      };
+
+      const pickStep = (step) => {
+        const found = timelineSafe.find(ev => {
+          const tl = (ev.title || '').toLowerCase();
+          return step.match(tl);
+        });
+        return found
+          ? { title: step.title, event_date: fmtDate(found.event_date), status: 'upcoming', sort_order: step.order }
+          : null;
+      };
+
+      const cleanedTimeline = keySteps.map(step => {
+        const entry = pickStep(step) || { title: step.title, event_date: '', status: 'upcoming', sort_order: step.order };
+        // status assignment based on milestone/order
+        if (step.order < milestone) entry.status = 'done';
+        else if (step.order === milestone) entry.status = 'current';
+        else entry.status = 'upcoming';
+        // special date injections
+        if (step.key === 'submitted') entry.event_date = fmtDate(d.submittedAt || data.application?.submitted_at) || entry.event_date;
+        if (step.key === 'exam' && d.examSchedule !== 'To be scheduled') entry.event_date = d.examSchedule;
+        return entry;
+      });
+
+      // Official Decision Banner
+      const reviewCard = document.querySelector('.timeline-track').closest('.review-card');
+      let decisionBanner = document.getElementById('decisionBannerResult');
+      if (!decisionBanner) {
+        decisionBanner = document.createElement('div');
+        decisionBanner.id = 'decisionBannerResult';
+        reviewCard.parentNode.insertBefore(decisionBanner, reviewCard);
+      }
+
+      if (data.decision) {
+        reviewCard.style.display = 'none'; // Hide timeline, decision is final
+        let bClass = 'alert-primary';
+        let bTitle = 'Decision Published';
+        let bText = 'Your official admission result is ready.';
+        
+        let actionButtons = ``;
+        if (data.decision.decision_status === 'Approve') {
+           if (data.enrollment) {
+               // Already Enrolled
+               bClass = 'alert-success bg-success text-white border-0';
+               bTitle = '🎉 Officially Enrolled!';
+               bText = `Welcome to ACTS Colleges. Your official Student ID is: <strong class="fs-4 d-block mt-2 bg-white text-success p-2 rounded">${data.enrollment.student_id}</strong>`;
+               actionButtons = `
+                 <a href="letter.php?token=${data.decision.letter_url}" target="_blank" class="btn btn-outline-light mt-3 fw-bold px-4 rounded-pill shadow-sm">
+                    <i class="bi bi-envelope-open-fill me-2"></i>Review Official Letter
+                 </a>
+               `;
+           } else {
+               // Needs to Accept Offer
+               bClass = 'alert-success bg-success text-white border-0';
+               bTitle = '🎉 Congratulations!';
+               bText = 'You have been officially accepted for admission to ACTS Colleges! Please review your letter and accept the offer to secure your slot.';
+               actionButtons = `
+                 <div class="d-flex justify-content-center gap-2 mt-2">
+                    <a href="letter.php?token=${data.decision.letter_url}" target="_blank" class="btn btn-light text-success btn-lg fw-bold px-4 rounded-pill shadow-sm">
+                       <i class="bi bi-envelope-open-fill me-2"></i>View Official Letter
+                    </a>
+                    <button class="btn btn-warning text-dark btn-lg fw-bold px-4 rounded-pill shadow-sm" id="btnAcceptOffer" onclick="handleAcceptOffer()">
+                       <i class="bi bi-check-circle-fill me-2"></i>Accept Offer & Enroll
+                    </button>
+                 </div>
+               `;
+           }
+        } else if (data.decision.decision_status === 'Waitlist') {
+           bClass = 'alert-warning';
+           bTitle = 'Waitlisted';
+           bText = 'You have been placed on the admissions waitlist.';
+           actionButtons = `
+             <a href="letter.php?token=${data.decision.letter_url}" target="_blank" class="btn btn-primary fw-bold px-4 rounded-pill shadow-sm mt-2">
+                <i class="bi bi-envelope-open-fill me-2"></i>View Official Letter
+             </a>
+           `;
+        } else {
+           bClass = 'alert-danger';
+           bTitle = 'Update on your Application';
+           bText = 'We have carefully reviewed your application. Please view the official letter for details.';
+           actionButtons = `
+             <a href="letter.php?token=${data.decision.letter_url}" target="_blank" class="btn btn-primary fw-bold px-4 rounded-pill shadow-sm mt-2">
+                <i class="bi bi-envelope-open-fill me-2"></i>View Official Letter
+             </a>
+           `;
+        }
+
+        decisionBanner.className = `alert ${bClass} p-4 mt-2 mb-4 d-flex flex-column align-items-center justify-content-center text-center shadow`;
+        decisionBanner.style.borderRadius = '16px';
+        decisionBanner.innerHTML = `
+          <h4 class="fw-bold mb-2">${bTitle}</h4>
+          <p class="mb-2" style="font-size:1.1rem">${bText}</p>
+          ${actionButtons}
+        `;
+
+        // Show only greeting + decision banner (hide navigation and other cards)
+        const toHide = ['.dash-side', '.dash-cards', '.review-card', '#dashViewDetails', '#dashViewUploaded'];
+        toHide.forEach(sel => {
+          document.querySelectorAll(sel).forEach(el => {
+            if (!el.contains(decisionBanner)) el.style.display = 'none';
+          });
+        });
+      } else {
+        // Restore default layout when decision is not yet published
+        const toShow = ['.dash-side', '.dash-cards', '.review-card', '#dashViewDetails', '#dashViewUploaded'];
+        toShow.forEach(sel => {
+          document.querySelectorAll(sel).forEach(el => el.style.display = '');
+        });
+        reviewCard.style.display = 'block';
+        decisionBanner.className = 'd-none';
+      }
+
+      // Timeline
+      renderTimeline(cleanedTimeline);
+
+      // Details
+      setText('detailName', d.fullName || 'Not provided');
+      setText('detailEmail', data.user.email || 'Not provided');
+      setText('detailContact', d.contact || 'Not provided');
+      setText('detailProgram', d.program || 'Not provided');
+      setText('detailType', d.applicantType || 'Not provided');
+      setText('detailSchool', d.school || 'Not provided');
+      setText('detailYear', d.yearCompleted || 'Not provided');
+      setText('detailAverage', d.average || 'Not provided');
+
+      // Documents
+      renderUploadBoxes(docs);
+      renderUploadedDocuments(docs);
+      renderSubmittedDocuments(docs);
+    }
+
+    /* ── Accept Offer API ── */
+    async function handleAcceptOffer() {
+       if (!confirm('Are you sure you want to officially accept your offer of admission and enroll in ACTS Colleges?')) return;
+       
+       const btn = document.getElementById('btnAcceptOffer');
+       const origText = btn.innerHTML;
+       btn.disabled = true;
+       btn.innerHTML = 'Enrolling...';
+
+       try {
+          const res = await fetch('api/accept_offer.php', { method: 'POST' });
+          const data = await res.json();
+          if (data.success) {
+             alert(data.message + ' Your new Student ID is: ' + data.student_id);
+             fetchDashboardData(); // Refresh UI
+          } else {
+             alert(data.message);
+          }
+       } catch (e) {
+          alert('Connection error.');
+       }
+       
+       if (btn) {
+         btn.disabled = false;
+         btn.innerHTML = origText;
+       }
+    }
+
+    /* ── File upload handler ── */
+    async function handleDashboardUpload(inputEl, label) {
+      if (!inputEl.files || !inputEl.files[0]) return;
+
+      const file = inputEl.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('label', label);
+
+      const area = inputEl.closest('.file-upload-area');
+      const origHTML = area.innerHTML;
+      area.innerHTML = '<i class="bi bi-hourglass-split d-block" style="font-size:1.2rem"></i><p style="margin-bottom:0; font-size:0.75rem">Uploading...</p>';
+
+      try {
+        const res = await fetch('api/upload.php', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          area.style.borderColor = 'var(--blue)';
+          area.style.background = 'rgba(46,120,184,0.04)';
+          area.innerHTML = '<i class="bi bi-check-circle-fill d-block text-success" style="font-size:1.2rem"></i><p style="margin-bottom:0; font-size:0.75rem"><strong>' + file.name + '</strong><br>Uploaded!</p>';
+          // Refresh dashboard data
+          loadDashboard();
+            // --- Toggle Uploads Button Handler ---
+            document.addEventListener('DOMContentLoaded', function() {
+              const toggleBtn = document.getElementById('toggleUploadBtn');
+              if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                  uploadsVisible = !uploadsVisible;
+                  document.getElementById('dashboardUploadSection').style.display = uploadsVisible ? '' : 'none';
+                  document.getElementById('uploadedDocsGrid').style.display = uploadsVisible ? '' : 'none';
+                });
+              }
+            });
+        } else {
+          alert(data.message || 'Upload failed.');
+          area.innerHTML = origHTML;
+        }
+      } catch (err) {
+        alert('Connection error. Please make sure Laragon is running.');
+        area.innerHTML = origHTML;
+      }
+    }
+
+    /* ── File delete handler ── */
+    function handleDeleteUpload(docId, docLabel) {
+      docToDeleteId = docId;
+      document.getElementById('deleteConfirmText').textContent = `Are you sure you want to delete "${docLabel}"? You can re-upload it afterwards.`;
+      deleteModalInstance.show();
+    }
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+      if (!docToDeleteId) return;
+
+      const btn = document.getElementById('confirmDeleteBtn');
+      const origText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Deleting...';
+
+      try {
+        const res = await fetch('api/delete_upload.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ documentId: docToDeleteId })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          deleteModalInstance.hide();
+          loadDashboard(); // Refresh UI instantly
+        } else {
+          alert(data.message || 'Could not delete document.');
+        }
+      } catch (err) {
+        alert('Connection error. Please make sure Laragon is running.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origText;
+        docToDeleteId = null;
+      }
+    });
+
+    function promptLogout() {
+      logoutModalInstance.show();
+    }
+
+    async function handleLogout() {
+      if (localStorage.getItem('demoSession')) {
+        localStorage.removeItem('demoSession');
+        window.location.href = 'admissions.html';
+        return;
+      }
+      try {
+        await fetch('api/logout.php', { method: 'POST' });
+        window.location.href = 'admissions.html';
+      } catch (err) { }
+    }
+
+    /* ── Load dashboard from API ── */
+    async function loadDashboard() {
+      // --- Demo Intercept ---
+      if (localStorage.getItem('demoSession') === 'student') {
+        renderDashboard({
+          success: true,
+          user: { email: 'student@demo.com' },
+          display: {
+            fullName: 'Demo Student', reference: 'ACTS-2026-DEMO', program: 'BS Information Technology',
+            documentsText: '2 uploaded', status: 'Under Review', statusClass: 'status-pending',
+            statusIcon: 'bi bi-clock-history', contact: '09123456789', applicantType: 'New Student',
+            school: 'Demo High School', yearCompleted: '2025', average: '90'
+          },
+          documents: [
+            { id: 1, label: 'Form 138 / Report Card', file_name: 'report_card.pdf', status: 'Pending' },
+            { id: 2, label: 'PSA Birth Certificate', file_name: 'psa.pdf', status: 'Approved' }
+          ],
+          timeline: [
+            { title: 'Application Submitted', event_date: new Date().toISOString() },
+            { title: 'Documents Reviewed', event_date: new Date().toISOString() }
+          ],
+          interview: null, entranceExam: null, decision: null, enrollment: null
+        });
+        return;
+      }
+      // ----------------------
+      try {
+        const res = await fetch('api/get_dashboard.php', { cache: 'no-store' });
+        const data = await res.json();
+
+        if (data.success) {
+          renderDashboard(data);
+        } else {
+          // Not authenticated or no application
+          window.location.href = 'admissions.html';
+        }
+      } catch (err) {
+        console.error('Could not load dashboard data.');
+      }
+    }
+
+    // Initialize & auto-refresh every 5 seconds for Real-time
+    loadDashboard();
+    setInterval(loadDashboard, 5000);
+    const defaultButton = document.querySelector('.dash-side-btn[data-view="overview"]');
+    switchDashboardView('overview', defaultButton);
+  </script>
+
+</body>
+
+</html>
