@@ -18,7 +18,7 @@
 
 <body>
 
-  <!-- â•â•â• LOADER â•â•â• -->
+  <!--  LOADER  -->
   <div id="loader">
     <div class="ld-spin">
       <img class="ld-img" src="image/logo.png" alt="ACTS Colleges"
@@ -55,7 +55,7 @@
   </header>
 
 
-  <!-- â•â•â• HERO â•â•â• -->
+  <!--  HERO  -->
   <section class="adm-page-hero" id="admPageHero">
     <div class="hero-dots"></div>
     <div class="container">
@@ -69,7 +69,7 @@
   </section>
 
 
-  <!-- â•â•â• AUTH SECTION â•â•â• -->
+  <!--  AUTH SECTION  -->
   <section class="auth-section">
     <div class="container">
       <div class="row g-4">
@@ -88,7 +88,7 @@
               </button>
             </div>
 
-            <!-- â•â•â• LOGIN PANEL â•â•â• -->
+            <!--  LOGIN PANEL  -->
             <div class="auth-panel active" id="panelLogin">
               <div class="login-wrapper">
                 <div class="login-icon">
@@ -132,13 +132,59 @@
                   </button>
                 </form>
 
+                <!-- Demo Accounts -->
+                <div
+                  style="margin-top:1.5rem; padding:1rem 1.25rem; background:linear-gradient(135deg, rgba(46,120,184,0.06), rgba(46,120,184,0.02)); border:1px dashed rgba(46,120,184,0.3); border-radius:12px;">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:.75rem;">
+                    <i class="bi bi-lightning-charge-fill" style="color:#e6a817; font-size:1.1rem;"></i>
+                    <span
+                      style="font-weight:600; font-size:.85rem; color:var(--dark, #1a1a2e); letter-spacing:.3px;">DEMO
+                      ACCOUNTS</span>
+                  </div>
+                  <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
+                    <!-- Student Demo -->
+                    <button type="button"
+                      onclick="document.getElementById('loginEmail').value='student@demo.com'; document.getElementById('loginPassword').value='student123';"
+                      style="flex:1; min-width:160px; display:flex; align-items:center; gap:10px; padding:.65rem .85rem; background:#fff; border:1px solid rgba(46,120,184,0.2); border-radius:10px; cursor:pointer; transition:all .2s ease; text-align:left;"
+                      onmouseover="this.style.borderColor='#2e78b8'; this.style.boxShadow='0 2px 8px rgba(46,120,184,0.15)';"
+                      onmouseout="this.style.borderColor='rgba(46,120,184,0.2)'; this.style.boxShadow='none';">
+                      <div
+                        style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#2e78b8,#1b4f7a); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                        <i class="bi bi-mortarboard-fill" style="color:#fff; font-size:.95rem;"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:600; font-size:.8rem; color:#1a1a2e; line-height:1.2;">Student</div>
+                        <div style="font-size:.7rem; color:#888; line-height:1.3;">student@demo.com</div>
+                      </div>
+                    </button>
+                    <!-- Admin Demo -->
+                    <button type="button"
+                      onclick="document.getElementById('loginEmail').value='admin@demo.com'; document.getElementById('loginPassword').value='admin123';"
+                      style="flex:1; min-width:160px; display:flex; align-items:center; gap:10px; padding:.65rem .85rem; background:#fff; border:1px solid rgba(46,120,184,0.2); border-radius:10px; cursor:pointer; transition:all .2s ease; text-align:left;"
+                      onmouseover="this.style.borderColor='#2e78b8'; this.style.boxShadow='0 2px 8px rgba(46,120,184,0.15)';"
+                      onmouseout="this.style.borderColor='rgba(46,120,184,0.2)'; this.style.boxShadow='none';">
+                      <div
+                        style="width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#e6a817,#c4900a); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                        <i class="bi bi-shield-lock-fill" style="color:#fff; font-size:.95rem;"></i>
+                      </div>
+                      <div>
+                        <div style="font-weight:600; font-size:.8rem; color:#1a1a2e; line-height:1.2;">Admin</div>
+                        <div style="font-size:.7rem; color:#888; line-height:1.3;">admin@demo.com</div>
+                      </div>
+                    </button>
+                  </div>
+                  <div style="margin-top:.6rem; font-size:.7rem; color:#999; text-align:center;">
+                    <i class="bi bi-info-circle"></i> Click a card to auto-fill credentials, then press Sign In
+                  </div>
+                </div>
+
                 <p class="login-footer">
                   Don't have an account? <a href="#" onclick="switchTab('apply'); return false;">Apply Now</a>
                 </p>
               </div>
             </div>
 
-            <!-- â•â•â• APPLICATION PANEL â•â•â• -->
+            <!--  APPLICATION PANEL  -->
             <div class="auth-panel" id="panelApply">
 
               <div class="app-form-header">
@@ -155,7 +201,8 @@
                   <i class="bi bi-shield-lock text-primary" style="font-size: 3rem;"></i>
                 </div>
                 <h4 class="fw-bold text-dark mb-3">Verify Email to Apply</h4>
-                <p class="text-muted mb-4 px-md-5">To ensure the security of your application, please sign in with Google. This will instantly verify your email and fast-track the process.</p>
+                <p class="text-muted mb-4 px-md-5">To ensure the security of your application, please sign in with
+                  Google. This will instantly verify your email and fast-track the process.</p>
                 <div class="d-flex justify-content-center" id="googleBtnContainer">
                   <div id="g_id_onload"
                     data-client_id="976635367923-bt9ed08c8gudgea6br01pqebf71i8a95.apps.googleusercontent.com"
@@ -173,330 +220,333 @@
                 <!-- STEPPER -->
                 <div class="stepper" id="stepper">
                   <div class="stepper-step active" data-step="1">
-                  <div class="stepper-num">1</div>
-                  <span class="stepper-label">Personal Info</span>
+                    <div class="stepper-num">1</div>
+                    <span class="stepper-label">Personal Info</span>
+                  </div>
+                  <div class="stepper-line" data-line="1"></div>
+                  <div class="stepper-step" data-step="2">
+                    <div class="stepper-num">2</div>
+                    <span class="stepper-label">Academic Info</span>
+                  </div>
+                  <div class="stepper-line" data-line="2"></div>
+                  <div class="stepper-step" data-step="3">
+                    <div class="stepper-num">3</div>
+                    <span class="stepper-label">Documents</span>
+                  </div>
+                  <div class="stepper-line" data-line="3"></div>
+                  <div class="stepper-step" data-step="4">
+                    <div class="stepper-num">4</div>
+                    <span class="stepper-label">Review</span>
+                  </div>
                 </div>
-                <div class="stepper-line" data-line="1"></div>
-                <div class="stepper-step" data-step="2">
-                  <div class="stepper-num">2</div>
-                  <span class="stepper-label">Academic Info</span>
-                </div>
-                <div class="stepper-line" data-line="2"></div>
-                <div class="stepper-step" data-step="3">
-                  <div class="stepper-num">3</div>
-                  <span class="stepper-label">Documents</span>
-                </div>
-                <div class="stepper-line" data-line="3"></div>
-                <div class="stepper-step" data-step="4">
-                  <div class="stepper-num">4</div>
-                  <span class="stepper-label">Review</span>
-                </div>
-              </div>
 
-              <form id="applicationForm" onsubmit="handleSubmitApplication(event)">
+                <form id="applicationForm" onsubmit="handleSubmitApplication(event)">
 
-                <!-- â•â•â• STEP 1: PERSONAL INFO â•â•â• -->
-                <div class="form-step active" id="step1">
-                  <h5 class="form-step-title"><i class="bi bi-person-vcard"></i>Personal Information</h5>
-                  <p class="form-step-desc">Please provide your basic personal details.</p>
+                  <!--  STEP 1: PERSONAL INFO  -->
+                  <div class="form-step active" id="step1">
+                    <h5 class="form-step-title"><i class="bi bi-person-vcard"></i>Personal Information</h5>
+                    <p class="form-step-desc">Please provide your basic personal details.</p>
 
-                  <div class="row g-3">
-                    <div class="col-md-4">
-                      <label class="form-label">First Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="firstName" placeholder="Juan" required />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">Middle Name</label>
-                      <input type="text" class="form-control" id="middleName" placeholder="Santos" />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">Last Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="lastName" placeholder="Dela Cruz" required />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">Suffix</label>
-                      <select class="form-select" id="suffix">
-                        <option value="">None</option>
-                        <option>Jr.</option>
-                        <option>Sr.</option>
-                        <option>II</option>
-                        <option>III</option>
-                        <option>IV</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
-                      <input type="date" class="form-control" id="birthDate" required />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">Sex <span class="text-danger">*</span></label>
-                      <select class="form-select" id="sex" required>
-                        <option value="">Select</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Email Address <span class="text-danger">*</span></label>
-                      <div class="input-icon-wrap">
-                        <i class="bi bi-envelope"></i>
-                        <input type="email" class="form-control" id="email" placeholder="your@email.com" required />
+                    <div class="row g-3">
+                      <div class="col-md-4">
+                        <label class="form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Juan" required />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Middle Name</label>
+                        <input type="text" class="form-control" id="middleName" placeholder="Santos" />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Dela Cruz" required />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Suffix</label>
+                        <select class="form-select" id="suffix">
+                          <option value="">None</option>
+                          <option>Jr.</option>
+                          <option>Sr.</option>
+                          <option>II</option>
+                          <option>III</option>
+                          <option>IV</option>
+                        </select>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" id="birthDate" required />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Sex <span class="text-danger">*</span></label>
+                        <select class="form-select" id="sex" required>
+                          <option value="">Select</option>
+                          <option>Male</option>
+                          <option>Female</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                        <div class="input-icon-wrap">
+                          <i class="bi bi-envelope"></i>
+                          <input type="email" class="form-control" id="email" placeholder="your@email.com" required />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Contact Number <span class="text-danger">*</span></label>
+                        <div class="input-icon-wrap">
+                          <i class="bi bi-phone"></i>
+                          <input type="tel" class="form-control" id="contactNum" placeholder="09XX XXX XXXX" required />
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label">Complete Address <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="address"
+                          placeholder="House No., Street, Barangay, City, Province" required />
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Contact Number <span class="text-danger">*</span></label>
-                      <div class="input-icon-wrap">
-                        <i class="bi bi-phone"></i>
-                        <input type="tel" class="form-control" id="contactNum" placeholder="09XX XXX XXXX" required />
+
+                    <h6 class="form-section-label mt-4"><i class="bi bi-people-fill"></i>Parent / Guardian Information
+                    </h6>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Parent/Guardian Full Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="guardianName" placeholder="Full Name" required />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Relationship <span class="text-danger">*</span></label>
+                        <select class="form-select" id="guardianRelation" required>
+                          <option value="">Select</option>
+                          <option>Mother</option>
+                          <option>Father</option>
+                          <option>Guardian</option>
+                          <option>Sibling</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Guardian Contact Number <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="guardianContact" placeholder="09XX XXX XXXX"
+                          required />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Guardian Email</label>
+                        <input type="email" class="form-control" id="guardianEmail" placeholder="guardian@email.com" />
                       </div>
                     </div>
-                    <div class="col-12">
-                      <label class="form-label">Complete Address <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="address"
-                        placeholder="House No., Street, Barangay, City, Province" required />
-                    </div>
-                  </div>
 
-                  <h6 class="form-section-label mt-4"><i class="bi bi-people-fill"></i>Parent / Guardian Information
-                  </h6>
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <label class="form-label">Parent/Guardian Full Name <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="guardianName" placeholder="Full Name" required />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Relationship <span class="text-danger">*</span></label>
-                      <select class="form-select" id="guardianRelation" required>
-                        <option value="">Select</option>
-                        <option>Mother</option>
-                        <option>Father</option>
-                        <option>Guardian</option>
-                        <option>Sibling</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Guardian Contact Number <span class="text-danger">*</span></label>
-                      <input type="tel" class="form-control" id="guardianContact" placeholder="09XX XXX XXXX"
-                        required />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Guardian Email</label>
-                      <input type="email" class="form-control" id="guardianEmail" placeholder="guardian@email.com" />
-                    </div>
-                  </div>
-
-                  <div class="form-nav">
-                    <div></div>
-                    <button type="button" class="btn-step-next" onclick="nextStep(1)">
-                      Next: Academic Info <i class="bi bi-arrow-right"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- â•â•â• STEP 2: ACADEMIC INFO â•â•â• -->
-                <div class="form-step" id="step2">
-                  <h5 class="form-step-title"><i class="bi bi-book"></i>Academic Information</h5>
-                  <p class="form-step-desc">Tell us about your educational background and program interest.</p>
-
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <label class="form-label">Applicant Type <span class="text-danger">*</span></label>
-                      <select class="form-select" id="applicantType" required>
-                        <option value="">Select</option>
-                        <option>New Student (Freshman)</option>
-                        <option>Transferee</option>
-                        <option>Returning Student</option>
-                        <option>Cross-Enrollee</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Desired Program <span class="text-danger">*</span></label>
-                      <select class="form-select" id="desiredProgram" required>
-                        <option value="">Select Program</option>
-                        <optgroup label="College Programs">
-                          <option>BS Information Technology</option>
-                          <option>BS Computer Science</option>
-                          <option>BS Criminology</option>
-                        </optgroup>
-                        <optgroup label="Senior High School">
-                          <option>SHS TVL-ICT Strand</option>
-                          <option>SHS HUMSS Strand</option>
-                          <option>SHS ABM Strand</option>
-                        </optgroup>
-                        <optgroup label="Basic Education">
-                          <option>Junior High School</option>
-                          <option>Elementary</option>
-                          <option>Preschool / Kindergarten</option>
-                        </optgroup>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Last School Attended <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="lastSchool" placeholder="School name" required />
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Year Last Attended <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="yearAttended" placeholder="e.g. 2024-2025" required />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">Grade/Year Level Completed <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="yearLevel" placeholder="e.g. Grade 12, 1st Year"
-                        required />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">General Average</label>
-                      <input type="text" class="form-control" id="genAvg" placeholder="e.g. 88.5" />
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">LRN (Learner Ref. No.)</label>
-                      <input type="text" class="form-control" id="lrn" placeholder="12-digit LRN" />
-                    </div>
-                    <div class="col-12">
-                      <label class="form-label">Preferred Schedule</label>
-                      <select class="form-select" id="schedule">
-                        <option value="">Select preferred schedule</option>
-                        <option>Morning (7:00 AM 12:00 PM)</option>
-                        <option>Afternoon (1:00 PM 6:00 PM)</option>
-                        <option>No Preference</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-nav">
-                    <button type="button" class="btn-step-prev" onclick="prevStep(2)">
-                      <i class="bi bi-arrow-left"></i> Previous
-                    </button>
-                    <button type="button" class="btn-step-next" onclick="nextStep(2)">
-                      Next: Documents <i class="bi bi-arrow-right"></i>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- â• â• â•  STEP 3: REVIEW â• â• â•  -->
-                <div class="form-step" id="step3">
-                  <h5 class="form-step-title"><i class="bi bi-clipboard-check"></i>Review Your Application</h5>
-                  <p class="form-step-desc">Please review all information before submitting. You can go back to make
-                    changes.</p>
-
-                  <div class="review-card">
-                    <h6><i class="bi bi-person-vcard"></i>Personal Information</h6>
-                    <div class="review-row">
-                      <span class="review-label">Full Name</span>
-                      <span class="review-value" id="revName"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Date of Birth</span>
-                      <span class="review-value" id="revBirth"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Sex</span>
-                      <span class="review-value" id="revSex"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Email</span>
-                      <span class="review-value" id="revEmail"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Contact</span>
-                      <span class="review-value" id="revContact"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Address</span>
-                      <span class="review-value" id="revAddress"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Parent/Guardian</span>
-                      <span class="review-value" id="revGuardian"></span>
-                    </div>
-                  </div>
-
-                  <div class="review-card">
-                    <h6><i class="bi bi-book"></i>Academic Information</h6>
-                    <div class="review-row">
-                      <span class="review-label">Applicant Type</span>
-                      <span class="review-value" id="revType"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Desired Program</span>
-                      <span class="review-value" id="revProgram"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Last School</span>
-                      <span class="review-value" id="revSchool"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Year Attended</span>
-                      <span class="review-value" id="revYear"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">Grade/Year Completed</span>
-                      <span class="review-value" id="revLevel"></span>
-                    </div>
-                    <div class="review-row">
-                      <span class="review-label">General Average</span>
-                      <span class="review-value" id="revAvg"></span>
-                    </div>
-                  </div>
-
-
-
-                  <div class="form-check mt-3">
-                    <input class="form-check-input" type="checkbox" id="agreeTerms" required />
-                    <label class="form-check-label" for="agreeTerms" style="font-size:.85rem;color:var(--muted)">
-                      I certify that all information provided is true and correct. I understand that any false
-                      information may result in the cancellation of my application.
-                    </label>
-                  </div>
-
-                  <div class="form-nav">
-                    <button type="button" class="btn-step-prev" onclick="prevStep(3)">
-                      <i class="bi bi-arrow-left"></i> Previous
-                    </button>
-                    <button type="submit" class="btn-submit-app">
-                      <i class="bi bi-send-fill"></i> Submit Application
-                    </button>
-                  </div>
-                </div>
-
-                <!-- â•â•â• SUCCESS STATE â•â•â• -->
-                <div class="form-step" id="stepSuccess">
-                  <div class="success-state">
-                    <div class="success-icon">
-                      <i class="bi bi-check-lg"></i>
-                    </div>
-                    <h3>Application Submitted!</h3>
-                    <p>Your application has been received successfully. Save the reference number and login credentials
-                      below so you can track your admission status.</p>
-                    <div class="ref-number" id="refNumber">ACTS-2026-XXXXXX</div>
-                    <div class="generated-credentials">
-                      <div class="generated-credentials-title"><i class="bi bi-key-fill"></i>Your Login Credentials
-                      </div>
-                      <div class="generated-credential-row">
-                        <span>Email</span>
-                        <strong id="successEmail">your@email.com</strong>
-                      </div>
-                      <div class="generated-credential-row">
-                        <span>Temporary Password</span>
-                        <strong id="successPassword">ACTS0000</strong>
-                      </div>
-                    </div>
-                    <p style="font-size:.83rem">A confirmation email will be sent to your registered email address. Use
-                      the <strong>Login</strong> tab with your email and temporary password to track your application
-                      status.</p>
-                    <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
-                      <button type="button" class="btn-step-prev" onclick="resetApplicationFlow()">
-                        <i class="bi bi-arrow-counterclockwise"></i> New Application
-                      </button>
-                      <button type="button" class="btn-step-next" onclick="switchTab('login')">
-                        <i class="bi bi-box-arrow-in-right"></i> Go to Login
+                    <div class="form-nav">
+                      <div></div>
+                      <button type="button" class="btn-step-next" onclick="nextStep(1)">
+                        Next: Academic Info <i class="bi bi-arrow-right"></i>
                       </button>
                     </div>
                   </div>
-                </div>
 
-              </form>
-              <input type="hidden" id="googleVerified" value="false" />
+                  <!--  STEP 2: ACADEMIC INFO  -->
+                  <div class="form-step" id="step2">
+                    <h5 class="form-step-title"><i class="bi bi-book"></i>Academic Information</h5>
+                    <p class="form-step-desc">Tell us about your educational background and program interest.</p>
+
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label">Applicant Type <span class="text-danger">*</span></label>
+                        <select class="form-select" id="applicantType" required>
+                          <option value="">Select</option>
+                          <option>New Student (Freshman)</option>
+                          <option>Transferee</option>
+                          <option>Returning Student</option>
+                          <option>Cross-Enrollee</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Desired Program <span class="text-danger">*</span></label>
+                        <select class="form-select" id="desiredProgram" required>
+                          <option value="">Select Program</option>
+                          <optgroup label="College Programs">
+                            <option>BS Information Technology</option>
+                            <option>BS Computer Science</option>
+                            <option>BS Criminology</option>
+                          </optgroup>
+                          <optgroup label="Senior High School">
+                            <option>SHS TVL-ICT Strand</option>
+                            <option>SHS HUMSS Strand</option>
+                            <option>SHS ABM Strand</option>
+                          </optgroup>
+                          <optgroup label="Basic Education">
+                            <option>Junior High School</option>
+                            <option>Elementary</option>
+                            <option>Preschool / Kindergarten</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Last School Attended <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lastSchool" placeholder="School name" required />
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label">Year Last Attended <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="yearAttended" placeholder="e.g. 2024-2025"
+                          required />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">Grade/Year Level Completed <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="yearLevel" placeholder="e.g. Grade 12, 1st Year"
+                          required />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">General Average</label>
+                        <input type="text" class="form-control" id="genAvg" placeholder="e.g. 88.5" />
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label">LRN (Learner Ref. No.)</label>
+                        <input type="text" class="form-control" id="lrn" placeholder="12-digit LRN" />
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label">Preferred Schedule</label>
+                        <select class="form-select" id="schedule">
+                          <option value="">Select preferred schedule</option>
+                          <option>Morning (7:00 AM 12:00 PM)</option>
+                          <option>Afternoon (1:00 PM 6:00 PM)</option>
+                          <option>No Preference</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-nav">
+                      <button type="button" class="btn-step-prev" onclick="prevStep(2)">
+                        <i class="bi bi-arrow-left"></i> Previous
+                      </button>
+                      <button type="button" class="btn-step-next" onclick="nextStep(2)">
+                        Next: Documents <i class="bi bi-arrow-right"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- â• â• â•  STEP 3: REVIEW â• â• â•  -->
+                  <div class="form-step" id="step3">
+                    <h5 class="form-step-title"><i class="bi bi-clipboard-check"></i>Review Your Application</h5>
+                    <p class="form-step-desc">Please review all information before submitting. You can go back to make
+                      changes.</p>
+
+                    <div class="review-card">
+                      <h6><i class="bi bi-person-vcard"></i>Personal Information</h6>
+                      <div class="review-row">
+                        <span class="review-label">Full Name</span>
+                        <span class="review-value" id="revName"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Date of Birth</span>
+                        <span class="review-value" id="revBirth"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Sex</span>
+                        <span class="review-value" id="revSex"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Email</span>
+                        <span class="review-value" id="revEmail"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Contact</span>
+                        <span class="review-value" id="revContact"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Address</span>
+                        <span class="review-value" id="revAddress"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Parent/Guardian</span>
+                        <span class="review-value" id="revGuardian"></span>
+                      </div>
+                    </div>
+
+                    <div class="review-card">
+                      <h6><i class="bi bi-book"></i>Academic Information</h6>
+                      <div class="review-row">
+                        <span class="review-label">Applicant Type</span>
+                        <span class="review-value" id="revType"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Desired Program</span>
+                        <span class="review-value" id="revProgram"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Last School</span>
+                        <span class="review-value" id="revSchool"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Year Attended</span>
+                        <span class="review-value" id="revYear"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">Grade/Year Completed</span>
+                        <span class="review-value" id="revLevel"></span>
+                      </div>
+                      <div class="review-row">
+                        <span class="review-label">General Average</span>
+                        <span class="review-value" id="revAvg"></span>
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-check mt-3">
+                      <input class="form-check-input" type="checkbox" id="agreeTerms" required />
+                      <label class="form-check-label" for="agreeTerms" style="font-size:.85rem;color:var(--muted)">
+                        I certify that all information provided is true and correct. I understand that any false
+                        information may result in the cancellation of my application.
+                      </label>
+                    </div>
+
+                    <div class="form-nav">
+                      <button type="button" class="btn-step-prev" onclick="prevStep(3)">
+                        <i class="bi bi-arrow-left"></i> Previous
+                      </button>
+                      <button type="submit" class="btn-submit-app">
+                        <i class="bi bi-send-fill"></i> Submit Application
+                      </button>
+                    </div>
+                  </div>
+
+                  <!--  SUCCESS STATE  -->
+                  <div class="form-step" id="stepSuccess">
+                    <div class="success-state">
+                      <div class="success-icon">
+                        <i class="bi bi-check-lg"></i>
+                      </div>
+                      <h3>Application Submitted!</h3>
+                      <p>Your application has been received successfully. Save the reference number and login
+                        credentials
+                        below so you can track your admission status.</p>
+                      <div class="ref-number" id="refNumber">ACTS-2026-XXXXXX</div>
+                      <div class="generated-credentials">
+                        <div class="generated-credentials-title"><i class="bi bi-key-fill"></i>Your Login Credentials
+                        </div>
+                        <div class="generated-credential-row">
+                          <span>Email</span>
+                          <strong id="successEmail">your@email.com</strong>
+                        </div>
+                        <div class="generated-credential-row">
+                          <span>Temporary Password</span>
+                          <strong id="successPassword">ACTS0000</strong>
+                        </div>
+                      </div>
+                      <p style="font-size:.83rem">A confirmation email will be sent to your registered email address.
+                        Use
+                        the <strong>Login</strong> tab with your email and temporary password to track your application
+                        status.</p>
+                      <div class="d-flex gap-2 justify-content-center flex-wrap mt-3">
+                        <button type="button" class="btn-step-prev" onclick="resetApplicationFlow()">
+                          <i class="bi bi-arrow-counterclockwise"></i> New Application
+                        </button>
+                        <button type="button" class="btn-step-next" onclick="switchTab('login')">
+                          <i class="bi bi-box-arrow-in-right"></i> Go to Login
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
+                <input type="hidden" id="googleVerified" value="false" />
               </div> <!-- End applicationFormContainer -->
             </div>
 
@@ -569,7 +619,7 @@
     const applicantStorageKey = 'actsAdmissionsLatestApplicant';
     const sessionAccountStorageKey = 'actsAdmissionsSessionAccount';
 
-    /* â•â•â• LOADER â•â•â• */
+    /*  LOADER  */
     window.addEventListener('load', () => {
       setTimeout(() => {
         const el = document.getElementById('loader');
@@ -684,7 +734,7 @@
     }
 
 
-    /* â•â•â• TAB SWITCHING â•â•â• */
+    /*  TAB SWITCHING  */
     function switchTab(tab) {
       document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
@@ -698,7 +748,7 @@
       }
     }
 
-    /* â•â•â• PASSWORD TOGGLE â•â•â• */
+    /*  PASSWORD TOGGLE  */
     function togglePassword(inputId, btn) {
       const input = document.getElementById(inputId);
       const icon = btn.querySelector('i');
@@ -711,7 +761,7 @@
       }
     }
 
-    /* â•â•â• FORM STEPPER â•â•â• */
+    /*  FORM STEPPER  */
     let currentStep = 1;
     const totalSteps = 3;
 
@@ -770,7 +820,7 @@
       }
     }
 
-    /* â•â•â• POPULATE REVIEW â•â•â• */
+    /*  POPULATE REVIEW  */
     function populateReview() {
       const v = id => { const el = document.getElementById(id); return el ? (el.value || '') : ''; };
       const suffix = v('suffix') && v('suffix') !== 'None' ? ' ' + v('suffix') : '';
@@ -790,7 +840,7 @@
       document.getElementById('revAvg').textContent = v('genAvg') || '';
     }
 
-    /* â•â•â• FILE NAME DISPLAY â•â•â• */
+    /*  FILE NAME DISPLAY  */
     function showFileName(input) {
       const display = input.closest('.col-md-6').querySelector('.file-name-display');
       if (input.files.length > 0) {
@@ -800,7 +850,7 @@
       }
     }
 
-    /* â•â•â• LOGIN HANDLER â•â•â• */
+    /*  LOGIN HANDLER  */
     async function handleLogin(e) {
       e.preventDefault();
       const emailInput = document.getElementById('loginEmail').value;
@@ -846,7 +896,7 @@
       }
     }
 
-    /* â•â•â• APPLICATION SUBMIT â•â•â• */
+    /*  APPLICATION SUBMIT  */
     async function handleSubmitApplication(e) {
       e.preventDefault();
 
@@ -885,7 +935,7 @@
 
         if (data.success) {
           localStorage.removeItem('actsAdmissionsDraft'); // Clear draft upon success
-          
+
           document.getElementById('refNumber').textContent = data.reference;
           document.getElementById('successEmail').textContent = data.email;
           document.getElementById('successPassword').textContent = data.tempPassword;
@@ -930,7 +980,7 @@
       window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
     }
 
-    /* â•â•â• REMOVE INVALID ON INPUT â•â•â• */
+    /*  REMOVE INVALID ON INPUT  */
     document.querySelectorAll('.form-control, .form-select').forEach(input => {
       input.addEventListener('input', () => input.classList.remove('is-invalid'));
       input.addEventListener('change', () => input.classList.remove('is-invalid'));
@@ -969,7 +1019,7 @@
             }
           }
         }
-      } catch(e) {}
+      } catch (e) { }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -997,22 +1047,22 @@
     async function handleGoogleCredentialResponse(response) {
       const data = parseJwt(response.credential);
       if (data) {
-        
+
         // Ensure email isn't already used
         try {
-            const checkRes = await fetch('api/check_email.php', {
-               method: 'POST',
-               headers: { 'Content-Type': 'application/json' },
-               body: JSON.stringify({ email: data.email })
-            });
-            const checkData = await checkRes.json();
-            if (checkData.exists) {
-                alert('An application with this email already exists! Please use the Login tab to track your admission status.');
-                document.getElementById('loginEmail').value = data.email;
-                switchTab('login');
-                return;
-            }
-        } catch(e) {}
+          const checkRes = await fetch('api/check_email.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: data.email })
+          });
+          const checkData = await checkRes.json();
+          if (checkData.exists) {
+            alert('An application with this email already exists! Please use the Login tab to track your admission status.');
+            document.getElementById('loginEmail').value = data.email;
+            switchTab('login');
+            return;
+          }
+        } catch (e) { }
 
         document.getElementById('email').value = data.email || '';
         document.getElementById('firstName').value = data.given_name || '';
@@ -1032,8 +1082,8 @@
         const formContainer = document.getElementById('applicationFormContainer');
         if (gate) gate.style.display = 'none';
         if (formContainer) {
-           formContainer.style.display = 'block';
-           loadDraft(); // Recover saved draft info now that the form is visible
+          formContainer.style.display = 'block';
+          loadDraft(); // Recover saved draft info now that the form is visible
         }
 
         alert('Your email is securely verified! Please complete the rest of your application form.');
