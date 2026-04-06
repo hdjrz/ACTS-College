@@ -45,7 +45,6 @@
           </div>
         </div>
         <div class="portal-meta">
-          <span class="portal-chip"><i class="bi bi-window-stack"></i>Separate HTML Page</span>
           <a class="portal-chip" href="mailto:admissions@acts.edu.ph"><i
               class="bi bi-envelope-fill"></i>admissions@acts.edu.ph</a>
           <span class="portal-chip"><i class="bi bi-telephone-fill"></i>+63 (02) 8XXX-XXXX</span>
@@ -213,6 +212,11 @@
                     data-text="continue_with" data-size="large" data-logo_alignment="center">
                   </div>
                 </div>
+                <div class="mt-3">
+                  <button type="button" onclick="skipGoogleAuth()" style="background:none;border:none;color:#888;font-size:.82rem;cursor:pointer;text-decoration:underline;padding:0;">
+                    <i class="bi bi-skip-forward-fill me-1"></i>Skip for now (Demo)
+                  </button>
+                </div>
               </div>
 
               <!-- Application Form (Hidden Initially) -->
@@ -231,7 +235,7 @@
                   <div class="stepper-line" data-line="2"></div>
                   <div class="stepper-step" data-step="3">
                     <div class="stepper-num">3</div>
-                    <span class="stepper-label">Documents</span>
+                    <span class="stepper-label">Review Application</span>
                   </div>
                   <div class="stepper-line" data-line="3"></div>
                   <div class="stepper-step" data-step="4">
@@ -284,13 +288,6 @@
                         </select>
                       </div>
                       <div class="col-md-6">
-                        <label class="form-label">Email Address <span class="text-danger">*</span></label>
-                        <div class="input-icon-wrap">
-                          <i class="bi bi-envelope"></i>
-                          <input type="email" class="form-control" id="email" placeholder="your@email.com" required />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
                         <label class="form-label">Contact Number <span class="text-danger">*</span></label>
                         <div class="input-icon-wrap">
                           <i class="bi bi-phone"></i>
@@ -304,40 +301,16 @@
                       </div>
                     </div>
 
-                    <h6 class="form-section-label mt-4"><i class="bi bi-people-fill"></i>Parent / Guardian Information
-                    </h6>
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <label class="form-label">Parent/Guardian Full Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="guardianName" placeholder="Full Name" required />
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">Relationship <span class="text-danger">*</span></label>
-                        <select class="form-select" id="guardianRelation" required>
-                          <option value="">Select</option>
-                          <option>Mother</option>
-                          <option>Father</option>
-                          <option>Guardian</option>
-                          <option>Sibling</option>
-                          <option>Other</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">Guardian Contact Number <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control" id="guardianContact" placeholder="09XX XXX XXXX"
-                          required />
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">Guardian Email</label>
-                        <input type="email" class="form-control" id="guardianEmail" placeholder="guardian@email.com" />
-                      </div>
-                    </div>
-
                     <div class="form-nav">
                       <div></div>
-                      <button type="button" class="btn-step-next" onclick="nextStep(1)">
-                        Next: Academic Info <i class="bi bi-arrow-right"></i>
-                      </button>
+                      <div class="d-flex gap-2 align-items-center">
+                        <button type="button" onclick="skipStep(1)" style="background:none;border:none;color:#888;font-size:.82rem;cursor:pointer;text-decoration:underline;padding:0;">
+                          <i class="bi bi-skip-forward-fill me-1"></i>Skip
+                        </button>
+                        <button type="button" class="btn-step-next" onclick="nextStep(1)">
+                          Next: Academic Info <i class="bi bi-arrow-right"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -392,32 +365,20 @@
                         <input type="text" class="form-control" id="yearLevel" placeholder="e.g. Grade 12, 1st Year"
                           required />
                       </div>
-                      <div class="col-md-4">
-                        <label class="form-label">General Average</label>
-                        <input type="text" class="form-control" id="genAvg" placeholder="e.g. 88.5" />
-                      </div>
-                      <div class="col-md-4">
-                        <label class="form-label">LRN (Learner Ref. No.)</label>
-                        <input type="text" class="form-control" id="lrn" placeholder="12-digit LRN" />
-                      </div>
-                      <div class="col-12">
-                        <label class="form-label">Preferred Schedule</label>
-                        <select class="form-select" id="schedule">
-                          <option value="">Select preferred schedule</option>
-                          <option>Morning (7:00 AM 12:00 PM)</option>
-                          <option>Afternoon (1:00 PM 6:00 PM)</option>
-                          <option>No Preference</option>
-                        </select>
-                      </div>
                     </div>
 
                     <div class="form-nav">
                       <button type="button" class="btn-step-prev" onclick="prevStep(2)">
                         <i class="bi bi-arrow-left"></i> Previous
                       </button>
-                      <button type="button" class="btn-step-next" onclick="nextStep(2)">
-                        Next: Documents <i class="bi bi-arrow-right"></i>
-                      </button>
+                      <div class="d-flex gap-2 align-items-center">
+                        <button type="button" onclick="skipStep(2)" style="background:none;border:none;color:#888;font-size:.82rem;cursor:pointer;text-decoration:underline;padding:0;">
+                          <i class="bi bi-skip-forward-fill me-1"></i>Skip
+                        </button>
+                        <button type="button" class="btn-step-next" onclick="nextStep(2)">
+                          Next: Documents <i class="bi bi-arrow-right"></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -442,20 +403,12 @@
                         <span class="review-value" id="revSex"></span>
                       </div>
                       <div class="review-row">
-                        <span class="review-label">Email</span>
-                        <span class="review-value" id="revEmail"></span>
-                      </div>
-                      <div class="review-row">
                         <span class="review-label">Contact</span>
                         <span class="review-value" id="revContact"></span>
                       </div>
                       <div class="review-row">
                         <span class="review-label">Address</span>
                         <span class="review-value" id="revAddress"></span>
-                      </div>
-                      <div class="review-row">
-                        <span class="review-label">Parent/Guardian</span>
-                        <span class="review-value" id="revGuardian"></span>
                       </div>
                     </div>
 
@@ -481,10 +434,6 @@
                         <span class="review-label">Grade/Year Completed</span>
                         <span class="review-value" id="revLevel"></span>
                       </div>
-                      <div class="review-row">
-                        <span class="review-label">General Average</span>
-                        <span class="review-value" id="revAvg"></span>
-                      </div>
                     </div>
 
 
@@ -501,9 +450,14 @@
                       <button type="button" class="btn-step-prev" onclick="prevStep(3)">
                         <i class="bi bi-arrow-left"></i> Previous
                       </button>
-                      <button type="submit" class="btn-submit-app">
-                        <i class="bi bi-send-fill"></i> Submit Application
-                      </button>
+                      <div class="d-flex gap-2 align-items-center">
+                        <button type="button" onclick="skipStep(3)" style="background:none;border:none;color:#888;font-size:.82rem;cursor:pointer;text-decoration:underline;padding:0;">
+                          <i class="bi bi-skip-forward-fill me-1"></i>Skip to Success
+                        </button>
+                        <button type="submit" class="btn-submit-app">
+                          <i class="bi bi-send-fill"></i> Submit Application
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -785,6 +739,24 @@
       if (target) target.classList.add('active');
     }
 
+    function skipStep(fromStep) {
+      document.getElementById('step' + fromStep).querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+      if (fromStep < totalSteps) {
+        currentStep = fromStep + 1;
+        updateStepper();
+        if (currentStep === 3) populateReview();
+        window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
+      } else {
+        document.querySelector('.stepper').style.display = 'none';
+        document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+        document.getElementById('stepSuccess').classList.add('active');
+        document.getElementById('refNumber').textContent = 'ACTS-2026-DEMO01';
+        document.getElementById('successEmail').textContent = 'demo@acts.edu.ph';
+        document.getElementById('successPassword').textContent = 'ACTS0001';
+        window.scrollTo({ top: document.querySelector('.auth-section').offsetTop - 80, behavior: 'smooth' });
+      }
+    }
+
     function nextStep(fromStep) {
       /* Basic validation for required fields in current step */
       const stepEl = document.getElementById('step' + fromStep);
@@ -828,16 +800,13 @@
       document.getElementById('revName').textContent = v('firstName') + ' ' + (v('middleName') !== '' ? v('middleName') + ' ' : '') + v('lastName') + suffix;
       document.getElementById('revBirth').textContent = v('birthDate');
       document.getElementById('revSex').textContent = v('sex');
-      document.getElementById('revEmail').textContent = v('email');
       document.getElementById('revContact').textContent = v('contactNum');
       document.getElementById('revAddress').textContent = v('address');
-      document.getElementById('revGuardian').textContent = v('guardianName') + ' (' + v('guardianRelation') + ')';
       document.getElementById('revType').textContent = v('applicantType');
       document.getElementById('revProgram').textContent = v('desiredProgram');
       document.getElementById('revSchool').textContent = v('lastSchool');
       document.getElementById('revYear').textContent = v('yearAttended');
       document.getElementById('revLevel').textContent = v('yearLevel');
-      document.getElementById('revAvg').textContent = v('genAvg') || '';
     }
 
     /*  FILE NAME DISPLAY  */
@@ -1042,6 +1011,13 @@
       } catch (e) {
         return null;
       }
+    }
+
+    function skipGoogleAuth() {
+      const gate = document.getElementById('googleAuthGate');
+      const formContainer = document.getElementById('applicationFormContainer');
+      if (gate) gate.style.display = 'none';
+      if (formContainer) formContainer.style.display = 'block';
     }
 
     async function handleGoogleCredentialResponse(response) {
