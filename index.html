@@ -52,7 +52,7 @@
   <nav class="navbar navbar-expand-lg" id="mainNav">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <img class="nav-logo" src="/image/logo.png" alt="ACTS Colleges" onerror="this.style.display='none'" />
+        <img class="nav-logo" src="image/logo.png" alt="ACTS Colleges" onerror="this.style.display='none'" />
         <div>
           <span class="brand-title">A<span>C</span>TS</span>
           <span class="brand-sub">Asian Christian Technological School &amp; Colleges</span>
@@ -70,7 +70,8 @@
           <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item ms-lg-2">
-            <a class="nav-link btn-enroll" href="admissions.html"><i class="bi bi-mortarboard-fill me-1"></i>Enroll Now</a>
+            <a class="nav-link btn-enroll" href="admissions.html"><i class="bi bi-mortarboard-fill me-1"></i>Enroll
+              Now</a>
           </li>
         </ul>
       </div>
@@ -149,7 +150,7 @@
       <div class="divider mx-auto"></div>
       <p class="sec-sub mx-auto text-center">Don't miss the deadline — secure your slot at ACTS Colleges today!</p>
       <div class="cd-wrap">
-        <div class="cd-box"><span class="cd-num" id="cdDays">00</span><span class="cd-label">Days</span></div>
+        <div class="cd-box"><span class="cd-num" id="cdDays">01</span><span class="cd-label">Days</span></div>
         <div class="cd-box"><span class="cd-num" id="cdHrs">00</span><span class="cd-label">Hours</span></div>
         <div class="cd-box"><span class="cd-num" id="cdMin">00</span><span class="cd-label">Minutes</span></div>
         <div class="cd-box"><span class="cd-num" id="cdSec">00</span><span class="cd-label">Seconds</span></div>
@@ -640,70 +641,97 @@
   </section>
 
 
-  <!-- ═══ FACULTY ═══ -->
+  <!-- ═══ FACULTY / ORG CHART ═══ -->
   <section class="faculty-sec" id="faculty">
     <div class="container">
       <div class="text-center mb-5">
         <span class="sec-label">Our Team</span>
-        <h2 class="sec-title">Faculty & Staff</h2>
+        <h2 class="sec-title">Organizational Chart</h2>
         <div class="divider mx-auto"></div>
         <p class="sec-sub mx-auto text-center">Meet the dedicated educators and industry practitioners behind every ACTS
           graduate.</p>
       </div>
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4 reveal">
-          <div class="fac-card">
-            <div class="fac-avatar" style="background:linear-gradient(135deg,var(--blue),var(--blue-mid))"><i class="bi bi-person-fill"></i></div>
+
+      <!-- ORG CHART TREE -->
+      <div class="org-chart">
+
+        <!-- LEVEL 1 — President -->
+        <div class="org-level">
+          <div class="org-node org-root reveal">
+            <div class="org-avatar org-avatar-lg" style="background:linear-gradient(135deg,var(--blue-dk),var(--blue))">
+              <i class="bi bi-person-fill"></i>
+            </div>
             <h5>Dr. President</h5>
-            <span class="fac-role">School President</span>
-            <p class="fac-dept">Office of the President</p>
+            <span class="org-role">School President</span>
+            <span class="org-dept">Office of the President</span>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 reveal">
-          <div class="fac-card">
-            <div class="fac-avatar" style="background:linear-gradient(135deg,var(--red-dk),var(--red))"><i
-                class="bi bi-person-fill"></i></div>
-            <h5>Prof. Juan dela Cruz</h5>
-            <span class="fac-role">Dean, College of Computing</span>
-            <p class="fac-dept">BS IT & BS CS Programs</p>
+
+        <!-- Connector line down from President -->
+        <div class="org-connector org-connector-down"></div>
+
+        <!-- Horizontal bar spanning across children -->
+        <div class="org-connector org-connector-bar"></div>
+
+        <!-- LEVEL 2 — Deans & Heads (Academic) -->
+        <div class="org-level org-level-multi">
+          <div class="org-branch reveal">
+            <div class="org-connector org-connector-up"></div>
+            <div class="org-node">
+              <div class="org-avatar" style="background:linear-gradient(135deg,var(--red-dk),var(--red))">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <h5>Prof. Juan dela Cruz</h5>
+              <span class="org-role">Dean, College of Computing</span>
+              <span class="org-dept">BS IT &amp; BS CS Programs</span>
+            </div>
+          </div>
+          <div class="org-branch reveal">
+            <div class="org-connector org-connector-up"></div>
+            <div class="org-node">
+              <div class="org-avatar" style="background:linear-gradient(135deg,var(--blue-mid),var(--blue-lt))">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <h5>Prof. Ana Reyes</h5>
+              <span class="org-role">Dean, College of Criminology</span>
+              <span class="org-dept">BS Criminology Program</span>
+            </div>
+          </div>
+          <div class="org-branch reveal">
+            <div class="org-connector org-connector-up"></div>
+            <div class="org-node">
+              <div class="org-avatar" style="background:linear-gradient(135deg,#28669e,var(--blue))">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <h5>Ms. Grace Bautista</h5>
+              <span class="org-role">SHS Coordinator</span>
+              <span class="org-dept">Senior High School — TVL ICT</span>
+            </div>
+          </div>
+          <div class="org-branch reveal">
+            <div class="org-connector org-connector-up"></div>
+            <div class="org-node">
+              <div class="org-avatar" style="background:linear-gradient(135deg,#a95f36,#d5834b)">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <h5>Mr. Carlo Mendoza</h5>
+              <span class="org-role">Basic Education Principal</span>
+              <span class="org-dept">JHS &amp; Elementary</span>
+            </div>
+          </div>
+          <div class="org-branch reveal">
+            <div class="org-connector org-connector-up"></div>
+            <div class="org-node">
+              <div class="org-avatar" style="background:linear-gradient(135deg,var(--blue),var(--blue-mid))">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <h5>Mrs. Rebecca Lim</h5>
+              <span class="org-role">Registrar</span>
+              <span class="org-dept">Office of the Registrar</span>
+            </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 reveal">
-          <div class="fac-card">
-            <div class="fac-avatar" style="background:linear-gradient(135deg,var(--blue-mid),var(--blue-lt))"><i
-                class="bi bi-person-fill"></i></div>
-            <h5>Prof. Ana Reyes</h5>
-            <span class="fac-role">Dean, College of Criminology</span>
-            <p class="fac-dept">BS Criminology Program</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4 reveal">
-          <div class="fac-card">
-            <div class="fac-avatar" style="background:linear-gradient(135deg,#28669e,var(--blue))"><i
-                class="bi bi-person-fill"></i></div>
-            <h5>Ms. Grace Bautista</h5>
-            <span class="fac-role">SHS Coordinator</span>
-            <p class="fac-dept">Senior High School — TVL ICT</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4 reveal">
-          <div class="fac-card">
-            <div class="fac-avatar" style="background:linear-gradient(135deg,#a95f36,#d5834b)"><i
-                class="bi bi-person-fill"></i></div>
-            <h5>Mr. Carlo Mendoza</h5>
-            <span class="fac-role">Basic Education Principal</span>
-            <p class="fac-dept">JHS & Elementary</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4 reveal">
-          <div class="fac-card">
-            <div class="fac-avatar" style="background:linear-gradient(135deg,var(--blue),var(--blue-mid))"><i
-                class="bi bi-person-fill"></i></div>
-            <h5>Mrs. Rebecca Lim</h5>
-            <span class="fac-role">Registrar</span>
-            <p class="fac-dept">Office of the Registrar</p>
-          </div>
-        </div>
+
       </div>
     </div>
   </section>
@@ -994,6 +1022,7 @@
         </div>
 
       </div>
+    </div>
   </section>
 
 
@@ -1378,7 +1407,10 @@
     </div>
     <div class="cb-messages" id="cbMessages">
       <div class="cb-msg cb-bot">
-        <div class="cb-bubble">Hi there! 👋 I'm the ACTS virtual assistant. Ask me about <strong>programs</strong>, <strong>enrollment</strong>, <strong>tuition</strong>, <strong>scholarships</strong>, or anything else about ACTS Colleges!</div>
+        <div class="cb-bubble">Hi there! 👋 I'm the ACTS virtual assistant. Ask me about <strong>programs</strong>,
+          <strong>enrollment</strong>, <strong>tuition</strong>, <strong>scholarships</strong>, or anything else about
+          ACTS Colleges!
+        </div>
       </div>
       <div class="cb-suggestions" id="cbSuggestions">
         <button onclick="sendSuggestion('What programs do you offer?')">Programs</button>
@@ -1425,7 +1457,12 @@
     /* SMOOTH SCROLL */
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
+        const href = a.getAttribute('href');
+        if (href === '#') {
+          e.preventDefault();
+          return;
+        }
+        const t = document.querySelector(href);
         if (t) {
           e.preventDefault();
           const openModal = a.closest('.modal');
@@ -1452,9 +1489,9 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-    /* COUNTDOWN TIMER — Enrollment deadline: June 15, 2025 */
+    /* COUNTDOWN TIMER — Enrollment deadline: June 1, 2026 */
     (function () {
-      const deadline = new Date('2025-06-15T17:00:00+08:00').getTime();
+      const deadline = new Date('2026-06-01T17:00:00+08:00').getTime();
       function tick() {
         const now = Date.now();
         const diff = Math.max(0, deadline - now);
@@ -1473,8 +1510,12 @@
 
     /* GALLERY FILTER */
     function filterGal(cat) {
-      document.querySelectorAll('.gal-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+      document.querySelectorAll('.gal-btn').forEach(b => {
+        b.classList.remove('active');
+        if (b.getAttribute('onclick').includes(`'${cat}'`)) {
+          b.classList.add('active');
+        }
+      });
       document.querySelectorAll('.gal-item').forEach(item => {
         if (cat === 'all' || item.dataset.cat === cat) {
           item.style.display = 'flex';
@@ -1521,7 +1562,7 @@
       const msgDiv = document.createElement('div');
       msgDiv.className = `cb-msg ${sender === 'user' ? 'cb-user' : 'cb-bot'}`;
       msgDiv.innerHTML = `<div class="cb-bubble">${text}</div>`;
-      
+
       // Insert before suggestions instead of at end
       cbMessages.insertBefore(msgDiv, cbSuggestions);
       cbMessages.scrollTop = cbMessages.scrollHeight;
@@ -1530,19 +1571,19 @@
     function sendMsg() {
       const text = cbInput.value.trim();
       if (!text) return;
-      
+
       addMessage(text, 'user');
       cbInput.value = '';
-      
+
       // Hide suggestions after first message
-      if(cbSuggestions.style.display !== 'none') {
+      if (cbSuggestions.style.display !== 'none') {
         cbSuggestions.style.display = 'none';
       }
 
       setTimeout(() => {
         let response = "I'm sorry, I don't have information on that. Could you try rephrasing, or send us a message via the Contact Form?";
         const lowerText = text.toLowerCase();
-        
+
         for (const item of botResponses) {
           if (item.keywords.some(kw => lowerText.includes(kw))) {
             response = item.response;

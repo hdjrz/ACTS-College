@@ -1584,54 +1584,199 @@ footer {
   background: var(--cream);
 }
 
-.fac-card {
+/* ═══ ORG CHART ═══ */
+.org-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+/* Each horizontal level row */
+.org-level {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+}
+
+.org-level-multi {
+  gap: 1.2rem;
+}
+
+/* Individual node card */
+.org-node {
   background: var(--white);
   border-radius: 14px;
   border: 1.5px solid var(--border);
-  padding: 1.75rem 1.25rem;
+  padding: 1.5rem 1.25rem 1.25rem;
   text-align: center;
-  height: 100%;
-  transition: all 0.3s;
+  min-width: 170px;
+  max-width: 200px;
+  transition: all 0.35s cubic-bezier(.4,0,.2,1);
+  position: relative;
 }
 
-.fac-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 14px 40px rgba(53, 80, 107, 0.12);
+.org-node:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 40px rgba(53, 80, 107, 0.14);
   border-color: var(--red);
 }
 
-.fac-avatar {
-  width: 90px;
-  height: 90px;
+/* Root node (President) — bigger, highlighted */
+.org-root {
+  min-width: 220px;
+  max-width: 260px;
+  padding: 2rem 1.5rem 1.5rem;
+  border: 2px solid var(--blue);
+  box-shadow: 0 8px 32px rgba(46, 120, 184, 0.15);
+  background: linear-gradient(180deg, rgba(46,120,184,0.04) 0%, var(--white) 100%);
+}
+
+.org-root:hover {
+  border-color: var(--red);
+  box-shadow: 0 16px 48px rgba(46, 120, 184, 0.18);
+}
+
+/* Avatars */
+.org-avatar {
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
+  font-size: 1.7rem;
   color: var(--white);
-  border: 3px solid var(--border);
+  border: 3px solid rgba(255,255,255,0.3);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transition: transform 0.3s;
 }
 
-.fac-card h5 {
-  font-size: 0.95rem;
+.org-node:hover .org-avatar {
+  transform: scale(1.08);
+}
+
+.org-avatar-lg {
+  width: 88px;
+  height: 88px;
+  font-size: 2.2rem;
+  border: 4px solid rgba(255,255,255,0.35);
+  box-shadow: 0 6px 24px rgba(46,120,184,0.25);
+}
+
+.org-node h5 {
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--blue);
   margin-bottom: 0.15rem;
 }
 
-.fac-role {
-  font-size: 0.8rem;
+.org-root h5 {
+  font-size: 1.05rem;
+}
+
+.org-role {
+  font-size: 0.78rem;
   color: var(--red);
   font-weight: 600;
-  margin-bottom: 0.35rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.org-dept {
+  font-size: 0.72rem;
+  color: var(--muted);
   display: block;
 }
 
-.fac-dept {
-  font-size: 0.78rem;
-  color: var(--muted);
-  margin: 0;
+/* ── Connector Lines ── */
+.org-connector {
+  display: flex;
+  justify-content: center;
+}
+
+/* Vertical line down from parent */
+.org-connector-down {
+  width: 2.5px;
+  height: 32px;
+  background: var(--blue);
+  margin: 0 auto;
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+/* Horizontal bar connecting children */
+.org-connector-bar {
+  height: 2.5px;
+  background: var(--blue);
+  opacity: 0.5;
+  border-radius: 2px;
+  /* spans from 1st child center to last child center */
+  width: calc(100% - 200px);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Each branch column (connector-up + node) */
+.org-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Vertical line up from child into bar */
+.org-connector-up {
+  width: 2.5px;
+  height: 28px;
+  background: var(--blue);
+  opacity: 0.5;
+  border-radius: 2px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 991px) {
+  .org-level-multi {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .org-connector-bar {
+    display: none;
+  }
+
+  .org-branch {
+    width: 48%;
+    margin-bottom: 1rem;
+  }
+
+  .org-connector-up {
+    height: 20px;
+  }
+
+  .org-node {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .org-root {
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .org-branch {
+    width: 100%;
+  }
+
+  .org-connector-down {
+    height: 22px;
+  }
 }
 
 /* ═══ TESTIMONIALS ═══ */
